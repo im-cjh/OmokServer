@@ -1,0 +1,60 @@
+syntax = "proto3";
+package Protocol;
+
+message P_ChatRoom 
+{
+	int32 roomID = 1;
+	string content = 2;
+	string senderName =3;
+}
+
+message P_Room
+{
+	int32 roomID = 1;
+	string roomName = 2;
+	string hostName = 3;
+	int32 num_players = 4;
+}
+
+message P_Player
+{
+	string userName = 1;
+
+}
+
+message S2CRoomList
+{
+	repeated P_Room rooms = 1;
+}
+
+message C2SMakeRoom
+{
+	string roomName = 1;
+	string hostName = 2;
+	int32 num_players = 3;
+}
+
+message C2SEnterRoom
+{
+	int32 roomID = 1;
+	int32 userID = 2;
+}
+
+message P_GameContent
+{
+	int32 roomID = 1;
+	float yPos = 2;
+	float xPos = 3;
+	int32 stoneColor = 4;
+}
+
+message C2SLoginSuccess
+{
+	string userName = 1;
+	int32 userID = 2;
+}
+
+message S2CEnterRoom
+{
+	repeated P_Player players = 1;
+}
