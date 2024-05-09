@@ -1,13 +1,6 @@
 syntax = "proto3";
 package Protocol;
 
-message P_ChatRoom 
-{
-	int32 roomID = 1;
-	string content = 2;
-	string senderName =3;
-}
-
 message P_Room
 {
 	int32 roomID = 1;
@@ -57,4 +50,22 @@ message C2SLoginSuccess
 message S2CEnterRoom
 {
 	repeated P_Player players = 1;
+}
+
+message S2CWinner
+{
+	int32 stoneColor = 1;
+}
+
+message C2SChatRoom
+{
+	int32 roomID = 1;
+	string content = 2;
+	string senderName =3;
+}
+
+message S2CChatRoom
+{
+	string content = 1;
+	string senderName =2;
 }

@@ -46,6 +46,10 @@ void RoomManager::BroadcastContent(BYTE* pBuffer, INT32 pLen)
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
 		_rooms[pkt.roomid()].Broadcast(pBuffer, pLen);
+		
+		int adjY = 9 + (int)(pkt.ypos() / 0.34);
+		int adjX = 9 + (int)(pkt.xpos() / 0.34);
+		_rooms[pkt.roomid()].CheckOmok(adjY, adjX, static_cast<eStoneType>(pkt.stonecolor()));
 	}
 	else
 	{

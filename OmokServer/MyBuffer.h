@@ -4,6 +4,10 @@ class MyBuffer
 {
 public:
 	MyBuffer() = default;
+	~MyBuffer()
+	{
+		//delete buffer;
+	}
 
 	MyBuffer(INT32 pBufferSize) :
 		bufferSize(pBufferSize)

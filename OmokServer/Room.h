@@ -1,7 +1,15 @@
 #pragma once
 
+enum eStoneType : UINT8
+{
+	NONE= 0,
+	BLACK=1,
+	WHITE=2
+};
+
 class Room
 {
+	enum {BOARD_MAX = 19};
 public:
 	INT32 roomID;
 	string roomName;
@@ -11,6 +19,7 @@ public:
 private:
 	vector<PlayerRef> _players;
 	mutex _mutex;
+	eStoneType _board[BOARD_MAX][BOARD_MAX];
 
 public:
 	Room(Room&& pRoom) noexcept: 
@@ -28,6 +37,8 @@ public:
 	void Enter(PlayerRef player);
 	void Leave(PlayerRef player); 
 	void Broadcast(BYTE* sendBuffer, INT32 pLen);
-	void Broadcast2(class MyBuffer sendBuffer);
+
+	void CheckOmok(int pYpos, int pXpos, eStoneType pStoneType);
+	bool DFS(int pYpos, int pXpos, eStoneType pStoneType);
 };
 

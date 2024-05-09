@@ -20,10 +20,11 @@ void Room::Enter(PlayerRef player)
 		p->set_username(_players[i]->getName());
 	}
 
-	MyBuffer sendBuffer = PacketHandler::SerializePacket2(pkt, ePacketID::ENTER_ROOM_MESSAGE);
-	//BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::ENTER_ROOM_MESSAGE);
-	auto tmp = sizeof(sendBuffer);
-	Broadcast2(sendBuffer);
+	//MyBuffer sendBuffer = PacketHandler::SerializePacket2(pkt, ePacketID::ENTER_ROOM_MESSAGE);
+	int tmp = 0;
+	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::ENTER_ROOM_MESSAGE, tmp);
+	Broadcast(sendBuffer, tmp);
+	delete sendBuffer;
 }
 
 void Room::Leave(PlayerRef player)
@@ -40,11 +41,60 @@ void Room::Broadcast(BYTE* sendBuffer, INT32 pLen)
 		player->Send(sendBuffer, pLen);
 	}
 }
-void Room::Broadcast2(MyBuffer sendBuffer)
+
+void Room::CheckOmok(int pYpos, int pXpos, eStoneType pStoneType)
 {
-	lock_guard<mutex> lg(_mutex);
-	for (auto player : _players)
+	_board[pYpos][pXpos] = (pStoneType);
+	if (DFS(pYpos, pXpos, pStoneType))
 	{
-		player->Send(sendBuffer.buffer, sendBuffer.bufferSize);
+		Protocol::S2CWinner pkt;
+		pkt.set_stonecolor(pStoneType);
+
+		INT32 len = 0;
+		BYTE* sendBuffer = PacketHandler::SerializePacket<Protocol::S2CWinner>(pkt, ePacketID::WINNER_MESSAGE, len);
+		Broadcast(sendBuffer, len);
 	}
 }
+
+bool Room::DFS(int pYpos, int pXpos, eStoneType pStoneType)
+{
+	int cnt = 1;
+
+	for (int y = pYpos+1; y < pYpos + 5; y += 1)
+	{
+		if (y < BOARD_MAX&& _board[y][pXpos] != pStoneType)
+			break;
+		cnt += 1;
+		if (cnt >= 5)
+			return true;
+	}
+	cnt = 1;
+	for (int y = pYpos-1; y > pYpos - 5; y -= 1)
+	{
+		if (y >= 0 && _board[y][pXpos] != pStoneType)
+			break;
+		cnt += 1;
+		if (cnt >= 5)
+			return true;
+	}
+	cnt = 1;
+	for (int x = pXpos+1; x < pXpos + 5; x += 1)
+	{
+		if (x < BOARD_MAX && _board[pYpos][x] != pStoneType)
+			break;
+		cnt += 1;
+		if (cnt >= 5)
+			return true;
+	}
+	cnt = 1;
+	for (int x = pXpos - 1; x > pYpos - 5; x -= 1)
+	{
+		if (x >= 0 && _board[pYpos][x] != pStoneType)
+			break;
+		cnt += 1;
+		if (cnt >= 5)
+			return true;
+	}
+	return false;
+}
+

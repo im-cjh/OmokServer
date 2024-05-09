@@ -72,6 +72,9 @@ extern S2CEnterRoomDefaultTypeInternal _S2CEnterRoom_default_instance_;
 class S2CRoomList;
 struct S2CRoomListDefaultTypeInternal;
 extern S2CRoomListDefaultTypeInternal _S2CRoomList_default_instance_;
+class S2CWinner;
+struct S2CWinnerDefaultTypeInternal;
+extern S2CWinnerDefaultTypeInternal _S2CWinner_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::C2SEnterRoom* Arena::CreateMaybeMessage<::Protocol::C2SEnterRoom>(Arena*);
@@ -83,6 +86,7 @@ template<> ::Protocol::P_Player* Arena::CreateMaybeMessage<::Protocol::P_Player>
 template<> ::Protocol::P_Room* Arena::CreateMaybeMessage<::Protocol::P_Room>(Arena*);
 template<> ::Protocol::S2CEnterRoom* Arena::CreateMaybeMessage<::Protocol::S2CEnterRoom>(Arena*);
 template<> ::Protocol::S2CRoomList* Arena::CreateMaybeMessage<::Protocol::S2CRoomList>(Arena*);
+template<> ::Protocol::S2CWinner* Arena::CreateMaybeMessage<::Protocol::S2CWinner>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
@@ -1608,6 +1612,154 @@ class S2CEnterRoom final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Protocol_2eproto;
 };
+// -------------------------------------------------------------------
+
+class S2CWinner final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S2CWinner) */ {
+ public:
+  inline S2CWinner() : S2CWinner(nullptr) {}
+  ~S2CWinner() override;
+  explicit PROTOBUF_CONSTEXPR S2CWinner(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S2CWinner(const S2CWinner& from);
+  S2CWinner(S2CWinner&& from) noexcept
+    : S2CWinner() {
+    *this = ::std::move(from);
+  }
+
+  inline S2CWinner& operator=(const S2CWinner& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S2CWinner& operator=(S2CWinner&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S2CWinner& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S2CWinner* internal_default_instance() {
+    return reinterpret_cast<const S2CWinner*>(
+               &_S2CWinner_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(S2CWinner& a, S2CWinner& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S2CWinner* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S2CWinner* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S2CWinner* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S2CWinner>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S2CWinner& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S2CWinner& from) {
+    S2CWinner::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S2CWinner* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.S2CWinner";
+  }
+  protected:
+  explicit S2CWinner(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStoneColorFieldNumber = 1,
+  };
+  // int32 stoneColor = 1;
+  void clear_stonecolor();
+  int32_t stonecolor() const;
+  void set_stonecolor(int32_t value);
+  private:
+  int32_t _internal_stonecolor() const;
+  void _internal_set_stonecolor(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.S2CWinner)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t stonecolor_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocol_2eproto;
+};
 // ===================================================================
 
 
@@ -2351,9 +2503,35 @@ S2CEnterRoom::players() const {
   return _impl_.players_;
 }
 
+// -------------------------------------------------------------------
+
+// S2CWinner
+
+// int32 stoneColor = 1;
+inline void S2CWinner::clear_stonecolor() {
+  _impl_.stonecolor_ = 0;
+}
+inline int32_t S2CWinner::_internal_stonecolor() const {
+  return _impl_.stonecolor_;
+}
+inline int32_t S2CWinner::stonecolor() const {
+  // @@protoc_insertion_point(field_get:Protocol.S2CWinner.stoneColor)
+  return _internal_stonecolor();
+}
+inline void S2CWinner::_internal_set_stonecolor(int32_t value) {
+  
+  _impl_.stonecolor_ = value;
+}
+inline void S2CWinner::set_stonecolor(int32_t value) {
+  _internal_set_stonecolor(value);
+  // @@protoc_insertion_point(field_set:Protocol.S2CWinner.stoneColor)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
