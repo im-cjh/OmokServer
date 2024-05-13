@@ -57,9 +57,41 @@ void RoomManager::BroadcastContent(BYTE* pBuffer, INT32 pLen)
 	}
 }
 
+void RoomManager::BroadcastChat(BYTE* pBuffer, INT32 pLen)
+{
+	Protocol::C2SChatRoom pkt;
+	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
+	{
+		Protocol::S2CChatRoom processedPkt;
+		processedPkt.set_allocated_content(pkt.release_content());
+		processedPkt.set_allocated_sendername(pkt.release_sendername());
+
+		int len = 0;
+		BYTE* sendBuffer = PacketHandler::SerializePacket(processedPkt, ePacketID::CHAT_MESSAGE, &len);
+		_rooms[pkt.roomid()].Broadcast(sendBuffer, len);
+	}
+	else
+	{
+		return;
+	}
+}
+
 void RoomManager::HandleEnterRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer)
 {
 	Protocol::C2SEnterRoom pkt;
+	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
+	{
+		_rooms[pkt.roomid()].Enter(pPlayer);
+	}
+	else
+	{
+		return;
+	}
+}
+
+void RoomManager::HandleQuitRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer)
+{
+	Protocol::C2SQuitRoom pkt;
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
 		_rooms[pkt.roomid()].Enter(pPlayer);

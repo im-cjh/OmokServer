@@ -5,12 +5,11 @@
 #include "PacketHandler.h"
 #include "MyBuffer.h"
 
-void Room::Enter(PlayerRef player)
+void Room::Enter(PlayerRef pPlayer)
 {
-	
 	{
 		lock_guard<mutex> lg(_mutex);
-		_players.push_back(player);
+		_players.push_back(pPlayer);
 	}
 
 	Protocol::S2CEnterRoom pkt;
@@ -20,17 +19,26 @@ void Room::Enter(PlayerRef player)
 		p->set_username(_players[i]->getName());
 	}
 
-	//MyBuffer sendBuffer = PacketHandler::SerializePacket2(pkt, ePacketID::ENTER_ROOM_MESSAGE);
-	int tmp = 0;
-	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::ENTER_ROOM_MESSAGE, tmp);
-	Broadcast(sendBuffer, tmp);
+	int len = 0;
+	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::ENTER_ROOM_MESSAGE, &len);
+	Broadcast(sendBuffer, len);
 	delete sendBuffer;
 }
 
-void Room::Leave(PlayerRef player)
+void Room::Quit(PlayerRef pPlayer)
 {
-	lock_guard<mutex> lg(_mutex);
-	//_players.erase(player);
+	{
+		lock_guard<mutex> lg(_mutex);
+		auto it = ::find(_players.begin(), _players.end(), pPlayer);
+		if (it != _players.end())
+			_players.erase(it);
+	}
+
+	Protocol::C2SQuitRoom pkt;
+	int len = 0;
+	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::QUIT_ROOM_MESSAGE, &len);
+	Broadcast(sendBuffer, len);
+	delete sendBuffer;
 }
 
 void Room::Broadcast(BYTE* sendBuffer, INT32 pLen)
@@ -51,8 +59,9 @@ void Room::CheckOmok(int pYpos, int pXpos, eStoneType pStoneType)
 		pkt.set_stonecolor(pStoneType);
 
 		INT32 len = 0;
-		BYTE* sendBuffer = PacketHandler::SerializePacket<Protocol::S2CWinner>(pkt, ePacketID::WINNER_MESSAGE, len);
+		BYTE* sendBuffer = PacketHandler::SerializePacket<Protocol::S2CWinner>(pkt, ePacketID::WINNER_MESSAGE, &len);
 		Broadcast(sendBuffer, len);
+		delete sendBuffer;
 	}
 }
 

@@ -33,6 +33,12 @@ message C2SEnterRoom
 	int32 userID = 2;
 }
 
+message C2SQuitRoom
+{
+	int32 roomID = 1;
+	int32 userID = 2;
+}
+
 message P_GameContent
 {
 	int32 roomID = 1;

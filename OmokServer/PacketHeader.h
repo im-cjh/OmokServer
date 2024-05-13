@@ -9,8 +9,8 @@ enum ePacketID  : UINT16
 	ENTER_ROOM_MESSAGE = 3,
 	LOGIN_SUCCESS_MESSAGE = 4,
 	WINNER_MESSAGE = 5,
+	QUIT_ROOM_MESSAGE = 6
 };
-
 
 struct PacketHeader
 {

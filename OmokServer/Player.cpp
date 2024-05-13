@@ -9,12 +9,17 @@ void Player::setInfo(BYTE* pBuffer, INT32 pLen)
 		_name = pkt.username();
 		_ID = pkt.userid();
 	}
+	//GPlayerManager
 }
 
 void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 {
 	switch (ID)
 	{
+	case ePacketID::CHAT_MESSAGE:
+		GRoomManager.BroadcastChat(pBuffer, pLen)
+		break;
+
 	case ePacketID::ROOMS_MESSAGE:
 		GRoomManager.BroadcastRooms(shared_from_this());
 		break;
@@ -26,6 +31,9 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 		break;
 	case ePacketID::LOGIN_SUCCESS_MESSAGE:
 		setInfo(pBuffer, pLen);
+		break;
+	case ePacketID::QUIT_ROOM_MESSAGE:
+		GRoomManager.HandleQuitRoom(pBuffer, pLen, dynamic_pointer_cast<Player>(shared_from_this()));
 		break;
 	}
 }

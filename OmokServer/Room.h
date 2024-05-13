@@ -34,8 +34,8 @@ public:
 		roomID(pRoomID), roomName(std::move(pRoomName)), hostName(std::move(pHostName)), numParticipants(pNumParticipants)
 	{}
 
-	void Enter(PlayerRef player);
-	void Leave(PlayerRef player); 
+	void Enter(PlayerRef pPlayer);
+	void Quit(PlayerRef pPlayer); 
 	void Broadcast(BYTE* sendBuffer, INT32 pLen);
 
 	void CheckOmok(int pYpos, int pXpos, eStoneType pStoneType);

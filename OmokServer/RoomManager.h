@@ -15,8 +15,9 @@ public:
 	bool RegisterRoom(Room pRoom);
 	void BroadcastRooms(SessionRef pSession);
 	void BroadcastContent(BYTE* pBuffer, INT32 pLen);
+	void BroadcastChat(BYTE* pBuffer, INT32 pLen);
 	void HandleEnterRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer);
-
+	void HandleQuitRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer);
 private:
 };
 

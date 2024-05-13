@@ -6,7 +6,7 @@ class PacketHandler
 {
 public:
 	template<typename T>
-	inline static BYTE* SerializePacket(T pPkt, ePacketID pMessageID, int& tmp)
+	inline static BYTE* SerializePacket(T pPkt, ePacketID pMessageID, int* tmp)
 	{
 		const UINT16 dataSize = static_cast<UINT16>(pPkt.ByteSizeLong());
 		const UINT16 packetSize = dataSize + sizeof(PacketHeader);
@@ -17,7 +17,7 @@ public:
 		header->id = static_cast<UINT16>(pMessageID);
 		pPkt.SerializeToArray(sendBuffer+sizeof(PacketHeader), dataSize);
 
-		tmp = packetSize;
+		*tmp = packetSize;
 		return sendBuffer;
 	}	
 	template<typename T>
