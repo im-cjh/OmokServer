@@ -17,7 +17,7 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 	switch (ID)
 	{
 	case ePacketID::CHAT_MESSAGE:
-		GRoomManager.BroadcastChat(pBuffer, pLen)
+		GRoomManager.BroadcastChat(pBuffer, pLen);
 		break;
 
 	case ePacketID::ROOMS_MESSAGE:
