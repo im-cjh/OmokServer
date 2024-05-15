@@ -34,7 +34,9 @@ void Room::Quit(PlayerRef pPlayer)
 			_players.erase(it);
 	}
 
-	Protocol::C2SQuitRoom pkt;
+	Protocol::P_Player pkt;
+	pkt.set_username(pPlayer->getName());
+	cout << pPlayer->getName();
 	int len = 0;
 	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::QUIT_ROOM_MESSAGE, &len);
 	Broadcast(sendBuffer, len);

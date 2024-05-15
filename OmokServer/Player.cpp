@@ -19,7 +19,6 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 	case ePacketID::CHAT_MESSAGE:
 		GRoomManager.BroadcastChat(pBuffer, pLen);
 		break;
-
 	case ePacketID::ROOMS_MESSAGE:
 		GRoomManager.BroadcastRooms(shared_from_this());
 		break;

@@ -12,6 +12,8 @@ void RoomManager::Init()
 	static int roomID = 0;
 	_rooms.push_back(Room{ roomID++, u8"test2", "cjh", 1 });
 	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
 }
 
 void RoomManager::BroadcastRooms(SessionRef pSession)
@@ -59,12 +61,13 @@ void RoomManager::BroadcastContent(BYTE* pBuffer, INT32 pLen)
 
 void RoomManager::BroadcastChat(BYTE* pBuffer, INT32 pLen)
 {
+	
 	Protocol::C2SChatRoom pkt;
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
 		Protocol::S2CChatRoom processedPkt;
-		processedPkt.set_allocated_content(pkt.release_content());
-		processedPkt.set_allocated_sendername(pkt.release_sendername());
+		processedPkt.set_content(pkt.content());
+		processedPkt.set_sendername(pkt.sendername());
 
 		int len = 0;
 		BYTE* sendBuffer = PacketHandler::SerializePacket(processedPkt, ePacketID::CHAT_MESSAGE, &len);
@@ -94,7 +97,7 @@ void RoomManager::HandleQuitRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer)
 	Protocol::C2SQuitRoom pkt;
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
-		_rooms[pkt.roomid()].Enter(pPlayer);
+		_rooms[pkt.roomid()].Quit(pPlayer);
 	}
 	else
 	{
