@@ -54,7 +54,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerManager.cpp">
+    <ClCompile Include="MatchingManager.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="PacketHandler.cpp" />
@@ -103,7 +103,7 @@
     <ClInclude Include="Player.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerManager.h">
+    <ClInclude Include="MatchingManager.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="PacketHandler.h" />
