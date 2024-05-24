@@ -1,2 +1,14 @@
-protoc -I=./ --cpp_out=./ --csharp_out=./ ./Protocol.proto 
+@echo off
+set PROTO_SRC_DIR=.
+set PROTO_GEN_DIR=.
+set OMOK_SERVER_DIR=..\OmokServer
+set BATTLE_SERVER_DIR=..\BattleServer
+
+protoc -I=%PROTO_SRC_DIR% --cpp_out=%PROTO_GEN_DIR% --csharp_out=%PROTO_GEN_DIR% %PROTO_SRC_DIR%\Protocol.proto
+IF ERRORLEVEL 1 PAUSE
+
+xcopy /Y /E %PROTO_GEN_DIR%\* %OMOK_SERVER_DIR%\%PROTO_GEN_DIR%
+IF ERRORLEVEL 1 PAUSE
+
+xcopy /Y /E %PROTO_GEN_DIR%\* %BATTLE_SERVER_DIR%\%PROTO_GEN_DIR%
 IF ERRORLEVEL 1 PAUSE

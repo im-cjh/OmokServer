@@ -57,8 +57,10 @@
     <ClCompile Include="MatchingManager.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="PacketHandler.cpp" />
     <ClCompile Include="MyBuffer.cpp" />
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -106,8 +108,10 @@
     <ClInclude Include="MatchingManager.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="MyBuffer.h" />
+    <ClInclude Include="PacketHandler.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Protocol.proto">

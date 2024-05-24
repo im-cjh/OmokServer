@@ -13,5 +13,21 @@
     <Filter Include="Game">
       <UniqueIdentifier>{e5cac790-4f8b-4ce4-a1e5-7c56e5737c6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{a28d2e31-7ee3-4115-abef-81674ecaa923}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\OmokServer\BattleServer.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

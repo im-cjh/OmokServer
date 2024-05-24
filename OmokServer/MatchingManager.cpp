@@ -2,64 +2,44 @@
 #include "MatchingManager.h"
 #include "Player.h"
 
-MatchingManager GPlayerManager;
+MatchingManager GMatchMaker;
 
-void MatchingManager::Match(PlayerRef player)
+void MatchingManager::AddToQueueAndMatch(PlayerRef player)
 {
-	vector<PlayerRef> list;
-
-	for (auto& p : _players)
-	{
-		if (p != player && p->waitingForGame && SimilarTo(player->elo, p->elo))
-		{
-			list.push_back(p);
-			list.push_back(player);
-			StartGameRoom(list);
-			break;
-		}
-	}
+    {
+        std::lock_guard<std::mutex> lock(queueMutex);
+        _players.push(player);
+    }
+    // 매치메이킹 시도
+    tryMatchmaking();
 }
 
-void MatchingManager::AddPlayer(const PlayerRef& pPlayer)
+void MatchingManager::tryMatchmaking()
 {
-	_players.push_back(pPlayer);
+    while (true) 
+    {
+        PlayerRef player1, player2;
+        {
+            std::lock_guard<std::mutex> lock(queueMutex);
+            if (_players.size() < 2)
+                continue; // 큐에 두 명 이상의 플레이어가 없으면 종료
+
+            player1 = _players.front(); _players.pop();
+            player2 = _players.front(); _players.pop();
+        }
+         // 두 플레이어를 매칭하여 배틀 서버에 전달
+        startGameSession(player1, player2);
+        break;
+    }
 }
 
-void MatchingManager::RemovePlayer(const PlayerRef& pPlayer)
+void MatchingManager::startGameSession(const PlayerRef player1, const PlayerRef player2)
 {
-	auto it = ::find(_players.begin(), _players.end(), pPlayer);
-	if (it != _players.end())
-		_players.erase(it);
+    // 배틀 서버로 매칭된 플레이어 정보 전달
+    communicateWithBattleServer(player1, player2);
 }
 
-void MatchingManager::StartGameRoom(const vector<PlayerRef>& players)
+void MatchingManager::communicateWithBattleServer(const PlayerRef player1, const PlayerRef player2)
 {
-	cout << "StartGameRoom Calld" << endl;
-}
-
-bool MatchingManager::SimilarTo(INT16 leftElo, INT16 rightElo)
-{
-	return std::abs(leftElo - rightElo) <= 100;
-}
-
-double MatchingManager::CalcWinRate(int16_t playerRating, int16_t opponentRating)
-{
-	return 1.0 / (1.0 + ::pow(10, (opponentRating - playerRating) / 400.0));
-}
-
-INT16 MatchingManager::CalcNewRating(int16_t currentRating, double Score, double expectedWinRate, double kFactor)
-{
-	return INT16();
-}
-
-void MatchingManager::UpdateRating(PlayerRef player1, PlayerRef player2, double P1Score)
-{
-	double p1_expectedWinRate = CalcWinRate(player1->elo, player2->elo);
-	double p2_expectedWinRate = CalcWinRate(player2->elo, player1->elo);
-
-	int16_t p1_newRating = CalcNewRating(player1->elo, P1Score, p1_expectedWinRate);
-	int16_t p2_newRating= CalcNewRating(player2->elo, 1.0 - P1Score, p2_expectedWinRate);
-
-	player1->elo = p1_newRating;
-	player2->elo = p2_newRating;
+    return;
 }

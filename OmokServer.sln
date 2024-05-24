@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OmokServer", "OmokServer\Om
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "LoginServer", "LoginServer\LoginServer.njsproj", "{09AC9E57-73B2-4761-8654-02628715A5A1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LobbyServer", "LobbyServer\LobbyServer.vcxproj", "{60F577B5-2940-4293-ABF6-C6BB690CFE70}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BattleServer", "BattleServer\BattleServer.vcxproj", "{60F577B5-2940-4293-ABF6-C6BB690CFE70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

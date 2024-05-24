@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{24554a78-d1fd-4074-a95b-598e04df2769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{16cae358-cacb-4e67-a96f-a75bd8b659ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{e55e8e1b-552e-4723-bb32-dac4fc025661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{e5cac790-4f8b-4ce4-a1e5-7c56e5737c6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{a28d2e31-7ee3-4115-abef-81674ecaa923}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\OmokServer\BattleServer.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="IocpCore.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="IocpEvent.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Listener.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="RecvBuffer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="SocketUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="IocpCore.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="IocpEvent.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Listener.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHeader.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RecvBuffer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
