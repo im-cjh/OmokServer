@@ -1,7 +1,8 @@
+#include "pch.h"
 #pragma once
 
 //Server ÄÚµå
-enum ePacketID  : UINT16
+enum ePacketID : UINT16
 {
 	CHAT_MESSAGE = 0,
 	ROOMS_MESSAGE = 1,
@@ -10,7 +11,7 @@ enum ePacketID  : UINT16
 	LOGIN_SUCCESS_MESSAGE = 4,
 	WINNER_MESSAGE = 5,
 	QUIT_ROOM_MESSAGE = 6,
-	MATCHMAKIING_MESSAGE=7,
+	MATCHMAKIING_MESSAGE = 7
 };
 
 struct PacketHeader

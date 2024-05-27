@@ -36,7 +36,23 @@ void MatchingManager::tryMatchmaking()
 void MatchingManager::startGameSession(const PlayerRef player1, const PlayerRef player2)
 {
     // 배틀 서버로 매칭된 플레이어 정보 전달
-    communicateWithBattleServer(player1, player2);
+    SOCKADDR_IN addr;
+    addr.sin_port = 8888;
+    if (InetPton(AF_INET, L"127.0.0.1", &addr.sin_addr) <= 0)
+    {
+        return;
+    }
+
+    
+    if (connect(reinterpret_cast<SOCKET>(player1->GetHandle()), (struct sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) {
+        cout << "연결 실패: " << WSAGetLastError() << std::endl;
+        return;
+    }
+
+    if (connect(reinterpret_cast<SOCKET>(player2->GetHandle()), (struct sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) {
+        cout << "연결 실패: " << WSAGetLastError() << std::endl;
+        return;
+    }
 }
 
 void MatchingManager::communicateWithBattleServer(const PlayerRef player1, const PlayerRef player2)

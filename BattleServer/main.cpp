@@ -1,4 +1,4 @@
-ï»¿#include "pch.h"
+#include "pch.h"
 #include "Listener.h"
 #include "SocketUtils.h"
 #include "Protocol.pb.h"
@@ -10,21 +10,22 @@ int main()
     SocketUtils::Init();
     GRoomManager.Init();
     Listener listener(L"127.0.0.1", 8888);
-    
+    //Listener listener(L"203.237.81.67", 7777);
+
     vector<thread> workerThreads;
 
-    for (int i = 0; i < 5; ++i) 
+    for (int i = 0; i < 5; ++i)
     {
-        workerThreads.push_back(thread([=](){
+        workerThreads.push_back(thread([=]() {
             while (true)
                 GIocpCore.Dispatch();
-        }));
+            }));
     }
-    
+
     thread tListener(&Listener::StartAccept, &listener);
 
-    // ëª¨ë“  ìŠ¤ë ˆë“œê°€ ì¢…ë£Œë  ë•Œê¹Œì§€ ëŒ€ê¸°
-    for (auto& workerThread : workerThreads) 
+    // ¸ðµç ½º·¹µå°¡ Á¾·áµÉ ¶§±îÁö ´ë±â
+    for (auto& workerThread : workerThreads)
         workerThread.join();
     tListener.join();
 

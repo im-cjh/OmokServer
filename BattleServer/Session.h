@@ -4,7 +4,7 @@
 #include "RecvBuffer.h"
 #include "Protocol.pb.h"
 #include "PacketHeader.h"
-
+#include "RoomManager.h"
 
 class Session : public enable_shared_from_this<Session>
 {
@@ -37,14 +37,14 @@ private:
 	bool RegisterDisconnect();
 	void ProcessDisconnect();
 
-	INT32 OnRecv(BYTE* buffer, INT32 len) 
+	INT32 OnRecv(BYTE* buffer, INT32 len)
 	{
 		INT32 processLen = 0;
 
 		while (true)
 		{
 			INT32 dataSize = len - processLen;
-			 //최소한 헤더는 파싱할 수 있어야 한다
+			//최소한 헤더는 파싱할 수 있어야 한다
 			if (dataSize < sizeof(PacketHeader))
 				break;
 
@@ -53,7 +53,7 @@ private:
 			if (dataSize < header.size)
 				break;
 
-			 //패킷 조립 성공
+			//패킷 조립 성공
 			HandlePacket(&buffer[processLen], header.size, (ePacketID)header.id);
 
 			processLen += header.size;
@@ -63,7 +63,7 @@ private:
 	}
 
 	virtual void HandlePacket(BYTE* buffer, INT32 len, ePacketID ID) = 0;
-	
+
 
 private:
 	SOCKET _socket;

@@ -20,12 +20,12 @@ Session::~Session()
 void Session::Send(BYTE* buffer, INT32 len)
 {
 	SendEvent* sendEvent = new SendEvent();
-	sendEvent->owner = shared_from_this(); 
+	sendEvent->owner = shared_from_this();
 	sendEvent->buffer.resize(len);
 	::memcpy(sendEvent->buffer.data(), buffer, len);
-	   
+
 	lock_guard<mutex> lock(_mutex);
-	RegisterSend(sendEvent); 
+	RegisterSend(sendEvent);
 }
 
 void Session::Connect()

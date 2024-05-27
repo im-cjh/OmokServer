@@ -51,4 +51,4 @@ bool RecvBuffer::OnWrite(INT32 numOfBytes)
 
 	_writePos += numOfBytes;
 	return true;
-}
+} 
