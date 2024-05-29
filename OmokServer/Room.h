@@ -22,6 +22,10 @@ private:
 	eStoneType _board[BOARD_MAX][BOARD_MAX];
 
 public:
+	Room(const Room& room)
+	{
+		cout << "who are you";
+	}
 	Room(Room&& pRoom) noexcept: 
 		roomID(pRoom.roomID), roomName(move(pRoom.roomName)), 
 		hostName(move(pRoom.hostName)), numParticipants(pRoom.numParticipants), 

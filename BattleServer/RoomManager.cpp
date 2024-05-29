@@ -10,10 +10,7 @@ RoomManager GRoomManager;
 void RoomManager::Init()
 {
 	static int roomID = 0;
-	_rooms.push_back(Room{ roomID++, u8"test2", "cjh", 1 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+
 }
 
 void RoomManager::BroadcastRooms(SessionRef pSession)

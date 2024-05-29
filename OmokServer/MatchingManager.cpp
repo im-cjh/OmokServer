@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "MatchingManager.h"
 #include "Player.h"
+#include "PacketHandler.h"
 
 MatchingManager GMatchMaker;
 
@@ -52,6 +53,15 @@ void MatchingManager::startGameSession(const PlayerRef player1, const PlayerRef 
         cout << "연결 실패: " << WSAGetLastError() << std::endl;
         return;
     }
+    
+    Protocol::C2SEnterRoom pkt;
+    pkt.set_userid(0);
+    pkt.set_roomid(GRoomManager.AddRoom(player1, player2));
+    int len = 0;
+    BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKIING_MESSAGE, &len);
+
+    player1->Send(sendBuffer, len);
+    player2->Send(sendBuffer, len);
 }
 
 void MatchingManager::communicateWithBattleServer(const PlayerRef player1, const PlayerRef player2)

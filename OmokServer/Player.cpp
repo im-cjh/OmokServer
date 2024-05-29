@@ -17,15 +17,15 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 {
 	switch (ID)
 	{
-	case ePacketID::CHAT_MESSAGE:
-		GRoomManager.BroadcastChat(pBuffer, pLen);
-		break;
+	//case ePacketID::CHAT_MESSAGE:
+	//	GRoomManager.BroadcastChat(pBuffer, pLen);
+	//	break;
 	case ePacketID::ROOMS_MESSAGE:
 		GRoomManager.BroadcastRooms(shared_from_this());
 		break;
-	case ePacketID::CONTENT_MESSAGE:
-		GRoomManager.BroadcastContent(pBuffer, pLen);
-		break;
+	//case ePacketID::CONTENT_MESSAGE:
+	//	GRoomManager.BroadcastContent(pBuffer, pLen);
+	//	break;
 	case ePacketID::ENTER_ROOM_MESSAGE:
 		GRoomManager.HandleEnterRoom(pBuffer, pLen, dynamic_pointer_cast<Player>(shared_from_this()));
 		break;

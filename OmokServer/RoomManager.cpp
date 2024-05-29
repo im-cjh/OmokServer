@@ -6,14 +6,24 @@
 #include "PacketHandler.h"
 
 RoomManager GRoomManager;
+int RoomManager::roomID = 0;
 
 void RoomManager::Init()
 {
-	static int roomID = 0;
-	_rooms.push_back(Room{ roomID++, u8"test2", "cjh", 1 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ ++roomID, u8"test2", "cjh", 1 });
+	_rooms.push_back(Room{ ++roomID, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ ++roomID, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ ++roomID, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+}
+
+int RoomManager::AddRoom(PlayerRef p1, PlayerRef p2)
+{
+	Room room(++roomID, u8"ºü¸¥´ëÀü¹æ", u8"´ëÃæ ÀÌ¸§", 2 );
+	room.Enter(p1);
+	room.Enter(p2);
+	_rooms.push_back(move(room)); 
+
+	return roomID;
 }
 
 void RoomManager::BroadcastRooms(SessionRef pSession)
