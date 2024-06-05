@@ -29,40 +29,49 @@ void MatchingManager::tryMatchmaking()
             player2 = _players.front(); _players.pop();
         }
          // 두 플레이어를 매칭하여 배틀 서버에 전달
-        startGameSession(player1, player2);
+        //startGameSession(player1, player2);
+
+        Protocol::S2CBattleServer pkt;
+        pkt.set_ip(L"127.0.0.1");
+        pkt.set_port(7777);
+        int len = 0;
+        BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKIING_MESSAGE, &len);
+        
+        player1->Send(sendBuffer, len);
+        player2->Send(sendBuffer, len);
         break;
     }
 }
 
-void MatchingManager::startGameSession(const PlayerRef player1, const PlayerRef player2)
-{
-    // 배틀 서버로 매칭된 플레이어 정보 전달
-    SOCKADDR_IN addr;
-    addr.sin_family = AF_INET;
-    ::inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr);
-    addr.sin_port = htons(8888);
-
-    if (connect(player1->GetBattleSocket(), (sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) 
-    {
-        auto a = WSAGetLastError();
-        cout << "연결 실패: " << WSAGetLastError() << std::endl;
-        return;
-    }
-
-    if (connect(player2->GetBattleSocket(), (sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) {
-        cout << "연결 실패: " << WSAGetLastError() << std::endl;
-        return;
-    }
-    
-    Protocol::C2SEnterRoom pkt;
-    pkt.set_userid(0);
-    pkt.set_roomid(GRoomManager.AddRoom(player1, player2));
-    int len = 0;
-    BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKIING_MESSAGE, &len);
-
-    player1->Send(sendBuffer, len);
-    player2->Send(sendBuffer, len);
-}
+//void MatchingManager::startGameSession(const PlayerRef player1, const PlayerRef player2)
+//{
+//    // 배틀 서버로 매칭된 플레이어 정보 전달
+//    SOCKADDR_IN addr;
+//    addr.sin_family = AF_INET;
+//    ::inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr);
+//    addr.sin_port = htons(8888);
+//
+//    if (connect(player1->GetBattleSocket(), (sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) 
+//    {
+//        auto a = WSAGetLastError();
+//        cout << "연결 실패: " << WSAGetLastError() << std::endl;
+//        return;
+//    }
+//
+//    if (connect(player2->GetBattleSocket(), (sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) {
+//        cout << "연결 실패: " << WSAGetLastError() << std::endl;
+//        return;
+//    }
+//    
+//    Protocol::C2SEnterRoom pkt;
+//    pkt.set_userid(0);
+//    pkt.set_roomid(GRoomManager.AddRoom(player1, player2));
+//    int len = 0;
+//    BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKIING_MESSAGE, &len);
+//
+//    player1->Send(sendBuffer, len);
+//    player2->Send(sendBuffer, len);
+//}
 
 void MatchingManager::communicateWithBattleServer(const PlayerRef player1, const PlayerRef player2)
 {

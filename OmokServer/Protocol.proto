@@ -75,3 +75,9 @@ message S2CChatRoom
 	string content = 1;
 	string senderName =2;
 }
+
+message S2CBattleServer
+{
+	string ip = 1;
+	int32 port = 2;
+}

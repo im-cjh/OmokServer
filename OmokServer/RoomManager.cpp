@@ -10,10 +10,10 @@ int RoomManager::roomID = 0;
 
 void RoomManager::Init()
 {
-	_rooms.push_back(Room{ ++roomID, u8"test2", "cjh", 1 });
-	_rooms.push_back(Room{ ++roomID, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
-	_rooms.push_back(Room{ ++roomID, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
-	_rooms.push_back(Room{ ++roomID, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ roomID++, u8"test2", "cjh", 1 });
+	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
 }
 
 int RoomManager::AddRoom(PlayerRef p1, PlayerRef p2)
@@ -94,6 +94,7 @@ void RoomManager::HandleEnterRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer)
 	Protocol::C2SEnterRoom pkt;
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
+		auto a = pkt.roomid();
 		_rooms[pkt.roomid()].Enter(pPlayer);
 	}
 	else
