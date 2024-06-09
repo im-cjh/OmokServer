@@ -2,7 +2,6 @@
 #include "IocpCore.h"
 #include "IocpEvent.h"
 #include "RecvBuffer.h"
-#include "Protocol.pb.h"
 #include "PacketHeader.h"
 #include "RoomManager.h"
 
@@ -23,6 +22,8 @@ public:
 protected:
 	void SetAddr(SOCKADDR_IN addr) { _addr = addr; }
 	void SetSocket(SOCKET socket) { _socket = socket; }
+	virtual void Connect(INT16 port = 0);
+	void OnConnected();
 
 private:
 	void RegisterSend(SendEvent* sendEvent);
@@ -33,7 +34,6 @@ private:
 	void RegisterRecv();
 	void ProcessRecv(INT32 numOfBytes);
 
-	void Connect();
 	bool RegisterDisconnect();
 	void ProcessDisconnect();
 
@@ -61,13 +61,13 @@ private:
 
 		return processLen;
 	}
-
 	virtual void HandlePacket(BYTE* buffer, INT32 len, ePacketID ID) = 0;
-	
 
-private:
+protected:
 	SOCKET _socket;
 	SOCKADDR_IN _addr;
+
+private:
 	RecvEvent _recvEvent;
 	SendEvent _sendEvent;
 	DisconnectEvent _disconnectEvent;

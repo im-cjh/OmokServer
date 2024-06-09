@@ -1,22 +1,36 @@
 #include "pch.h"
 #include "RoomManager.h"
 #include "Session.h"
+#include "OmokServerSession.h"
 #include "Room.h"
 #include "Player.h"
 #include "PacketHandler.h"
 
 RoomManager GRoomManager;
+int RoomManager::roomID = 0;
 
 void RoomManager::Init()
 {
-	static int roomID = 0;
+	_rooms.push_back(Room{ roomID++, u8"test2", "cjh", 1 });
+	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+}
 
+int RoomManager::AddRoom(PlayerRef p1, PlayerRef p2)
+{
+	Room room(++roomID, u8"ºü¸¥´ëÀü¹æ", u8"´ëÃæ ÀÌ¸§", 2 );
+	room.Enter(p1);
+	room.Enter(p2);
+	_rooms.push_back(move(room)); 
+
+	return roomID;
 }
 
 void RoomManager::BroadcastRooms(SessionRef pSession)
 {
 	Protocol::S2CRoomList ret;
-
+	
 	for (auto& a : _rooms)
 	{
 		Protocol::P_Room* r = ret.add_rooms();
@@ -25,10 +39,10 @@ void RoomManager::BroadcastRooms(SessionRef pSession)
 		r->set_hostname(a.hostName);
 		r->set_num_players(a.numParticipants);
 	}
-
+	
 	auto serialized_size = ret.ByteSizeLong(); //tmp
-
-	BYTE* buffer = new BYTE[serialized_size + sizeof(PacketHeader)];
+	
+	BYTE* buffer = new BYTE[serialized_size+sizeof(PacketHeader)];
 	PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
 	header->id = ePacketID::ROOMS_MESSAGE;
 	header->size = serialized_size + sizeof(PacketHeader);
@@ -45,7 +59,7 @@ void RoomManager::BroadcastContent(BYTE* pBuffer, INT32 pLen)
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
 		_rooms[pkt.roomid()].Broadcast(pBuffer, pLen);
-
+		
 		int adjY = 9 + (int)(pkt.ypos() / 0.34);
 		int adjX = 9 + (int)(pkt.xpos() / 0.34);
 		_rooms[pkt.roomid()].CheckOmok(adjY, adjX, static_cast<eStoneType>(pkt.stonecolor()));
@@ -58,7 +72,7 @@ void RoomManager::BroadcastContent(BYTE* pBuffer, INT32 pLen)
 
 void RoomManager::BroadcastChat(BYTE* pBuffer, INT32 pLen)
 {
-
+	
 	Protocol::C2SChatRoom pkt;
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
@@ -76,11 +90,26 @@ void RoomManager::BroadcastChat(BYTE* pBuffer, INT32 pLen)
 	}
 }
 
+void RoomManager::HandleMakeFastRoom(OmokServerSessionRef pSession)
+{
+	int ID = roomID;
+	_rooms.push_back(Room{ roomID++, u8"test2", "cjh", 1 });
+
+	Protocol::S2CRoomID pkt;
+	pkt.set_roomid(ID);
+
+	int len = 0;
+	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MAKE_FAST_ROOM_MESSAGE,&len);
+
+	pSession->Send(sendBuffer, len);
+}
+
 void RoomManager::HandleEnterRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer)
 {
 	Protocol::C2SEnterRoom pkt;
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
+		auto a = pkt.roomid();
 		_rooms[pkt.roomid()].Enter(pPlayer);
 	}
 	else

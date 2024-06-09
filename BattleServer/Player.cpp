@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "Player.h"
 
+void Player::Connect(INT16 port)
+{
+	
+}
+
 void Player::setInfo(BYTE* pBuffer, INT32 pLen)
 {
 	Protocol::C2SLoginSuccess pkt;
@@ -32,6 +37,9 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 	case ePacketID::QUIT_ROOM_MESSAGE:
 		GRoomManager.HandleQuitRoom(pBuffer, pLen, dynamic_pointer_cast<Player>(shared_from_this()));
 		break;
-
+	case ePacketID::MAKE_FAST_ROOM_MESSAGE:
+		int a = 13;
+		cout << a;
+		break;
 	}
 }

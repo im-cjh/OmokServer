@@ -28,11 +28,9 @@ void Session::Send(BYTE* buffer, INT32 len)
 	RegisterSend(sendEvent);
 }
 
-void Session::Connect()
+void Session::Connect(INT16 port)
 {
-	_connected.store(true);
-	cout << "Connected" << endl;
-	RegisterRecv();
+
 }
 
 void Session::Disconnect(const WCHAR* cause)
@@ -185,4 +183,11 @@ void Session::ProcessSend(SendEvent* sendEvent, INT32 numOfBytes)
 void Session::HandleError(INT32 errorCode)
 {
 
+}
+
+void Session::OnConnected(void)
+{
+	_connected.store(true);
+
+	RegisterRecv();
 }

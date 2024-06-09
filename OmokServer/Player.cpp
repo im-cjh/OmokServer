@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 #include "MatchingManager.h"
-
+#include "Protocol.pb.h"
 void Player::setInfo(BYTE* pBuffer, INT32 pLen)
 {
 	Protocol::C2SLoginSuccess pkt;
@@ -37,6 +37,10 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 		break;
 	case ePacketID::MATCHMAKIING_MESSAGE:
 		GMatchMaker.AddToQueueAndMatch(dynamic_pointer_cast<Player>(shared_from_this()));
+		break;
+	case ePacketID::MAKE_FAST_ROOM_MESSAGE:
+		int a = 3;
+		cout << a;
 		break;
 	}
 }

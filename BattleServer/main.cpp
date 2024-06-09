@@ -1,16 +1,33 @@
 #include "pch.h"
-#include "Listener.h"
+#include "PlayerListener.h"
+#include "ServerListener.h"
 #include "SocketUtils.h"
 #include "Protocol.pb.h"
 #include "PacketHeader.h"
 #include "RoomManager.h"
+#include "OmokServerSession.h"
+#include "PacketHandler.h"
 
 int main()
 {
     SocketUtils::Init();
     GRoomManager.Init();
-    Listener listener(L"127.0.0.1", 8888);
-    //Listener listener(L"203.237.81.67", 7777);
+    PlayerListener playerListener(L"127.0.0.1", 8888);
+    ServerListener serverListener(L"127.0.0.1", 8877);
+    
+
+    this_thread::sleep_for(1s);
+    OmokServerSessionRef omok = make_shared<OmokServerSession>();
+    omok->Connect(7788);
+    
+    for (int i = 0; i < 10; i += 1)
+    {
+        Protocol::S2CRoomID pkt;
+        pkt.set_roomid(15);
+        int len = 0;
+        BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MAKE_FAST_ROOM_MESSAGE, &len);
+        omok->Send(sendBuffer, len);
+    }
 
     vector<thread> workerThreads;
 
@@ -22,12 +39,14 @@ int main()
             }));
     }
 
-    thread tListener(&Listener::StartAccept, &listener);
+    thread tPlayerListener(&Listener::StartAccept, &playerListener);
+    thread tServerListener(&Listener::StartAccept, &serverListener);
 
     // 모든 스레드가 종료될 때까지 대기
     for (auto& workerThread : workerThreads)
         workerThread.join();
-    tListener.join();
+    tPlayerListener.join();
+    tServerListener.join();
 
     return 0;
 }

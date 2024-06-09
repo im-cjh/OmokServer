@@ -36,9 +36,6 @@
     <ClCompile Include="Listener.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="PacketHeader.h">
-      <Filter>Protocol</Filter>
-    </ClCompile>
     <ClCompile Include="SocketUtils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -57,6 +54,15 @@
     <ClCompile Include="IocpEvent.cpp" />
     <ClCompile Include="RecvBuffer.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="OmokServerSession.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerListener.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerListener.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,5 +106,17 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="IocpEvent.h" />
+    <ClInclude Include="PacketHeader.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="OmokServerSession.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerListener.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerListener.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -76,8 +76,13 @@ message S2CChatRoom
 	string senderName =2;
 }
 
-message S2CBattleServer
+message S2CBattleServerAddr
 {
-	string ip = 1;
+	string battleServerIp = 1;
 	int32 port = 2;
+}
+
+message S2CRoomID
+{
+	int32 roomID = 1;
 }

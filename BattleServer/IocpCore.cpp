@@ -29,8 +29,8 @@ bool IocpCore::Dispatch(UINT32 timeoutMs)
 	ULONG_PTR key = 0;
 	IocpEvent* iocpEvent = nullptr;
 
-	if (::GetQueuedCompletionStatus(_iocpHandle, &numOfBytes, &key,
-		reinterpret_cast<LPOVERLAPPED*>(&iocpEvent), timeoutMs))
+	if (::GetQueuedCompletionStatus(_iocpHandle, & numOfBytes, & key, 
+																reinterpret_cast<LPOVERLAPPED*>(&iocpEvent), timeoutMs))
 	{
 		SessionRef iocpObject = iocpEvent->owner;
 		iocpObject->Dispatch(iocpEvent, numOfBytes);

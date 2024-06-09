@@ -2,8 +2,6 @@
 #include "MatchingManager.h"
 #include "Player.h"
 #include "PacketHandler.h"
-#include "Protocol.pb.h"
-#include "BattleServerSession.h"
 
 MatchingManager GMatchMaker;
 
@@ -30,18 +28,17 @@ void MatchingManager::tryMatchmaking()
             player1 = _players.front(); _players.pop();
             player2 = _players.front(); _players.pop();
         }
-         // 두 플레이어에게 배틀 서버 IP, PORT 전달
-        Protocol::S2CBattleServerAddr pkt;
-        pkt.set_battleserverip("127.0.0.1");
+         // 두 플레이어를 매칭하여 배틀 서버에 전달
+        //startGameSession(player1, player2);
+
+        Protocol::S2CBattleServer pkt;
+        pkt.set_ip(L"127.0.0.1");
         pkt.set_port(7777);
         int len = 0;
         BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKIING_MESSAGE, &len);
         
         player1->Send(sendBuffer, len);
         player2->Send(sendBuffer, len);
-
-        //배틀서버에 방 만들기 요청
-        GBattleServer->MakeRoom();
         break;
     }
 }

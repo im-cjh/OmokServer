@@ -4,7 +4,7 @@
 #include "Session.h"
 #include "PacketHandler.h"
 #include "MyBuffer.h"
-
+#include "Protocol.pb.h"
 void Room::Enter(PlayerRef pPlayer)
 {
 	{

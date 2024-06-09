@@ -18,7 +18,7 @@
 #include <unordered_map>
 #include "Types.h"
 #include "Macro.h"
-
+#include "Protocol.pb.h"
 using namespace std;
 
 #ifdef _DEBUG

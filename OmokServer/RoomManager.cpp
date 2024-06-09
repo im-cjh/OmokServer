@@ -4,7 +4,7 @@
 #include "Room.h"
 #include "Player.h"
 #include "PacketHandler.h"
-
+#include "Protocol.pb.h"
 RoomManager GRoomManager;
 int RoomManager::roomID = 0;
 
@@ -71,7 +71,6 @@ void RoomManager::BroadcastContent(BYTE* pBuffer, INT32 pLen)
 
 void RoomManager::BroadcastChat(BYTE* pBuffer, INT32 pLen)
 {
-	
 	Protocol::C2SChatRoom pkt;
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{

@@ -2,14 +2,14 @@
 
 enum eStoneType : UINT8
 {
-	NONE = 0,
-	BLACK = 1,
-	WHITE = 2
+	NONE= 0,
+	BLACK=1,
+	WHITE=2
 };
 
 class Room
 {
-	enum { BOARD_MAX = 19 };
+	enum {BOARD_MAX = 19};
 public:
 	INT32 roomID;
 	string roomName;
@@ -22,9 +22,13 @@ private:
 	eStoneType _board[BOARD_MAX][BOARD_MAX];
 
 public:
-	Room(Room&& pRoom) noexcept :
-		roomID(pRoom.roomID), roomName(move(pRoom.roomName)),
-		hostName(move(pRoom.hostName)), numParticipants(pRoom.numParticipants),
+	Room(const Room& room)
+	{
+		cout << "who are you";
+	}
+	Room(Room&& pRoom) noexcept: 
+		roomID(pRoom.roomID), roomName(move(pRoom.roomName)), 
+		hostName(move(pRoom.hostName)), numParticipants(pRoom.numParticipants), 
 		_players(move(pRoom._players))
 	{
 
@@ -35,7 +39,7 @@ public:
 	{}
 
 	void Enter(PlayerRef pPlayer);
-	void Quit(PlayerRef pPlayer);
+	void Quit(PlayerRef pPlayer); 
 	void Broadcast(BYTE* sendBuffer, INT32 pLen);
 
 	void CheckOmok(int pYpos, int pXpos, eStoneType pStoneType);

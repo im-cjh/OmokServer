@@ -29,7 +29,7 @@ public:
 
 public:
 	void Broadcast(BYTE* buffer, INT32 len);
-
+	
 	void Add(SessionRef session);
 	void Remove(SessionRef session);
 	//void Broadcast(SendBufferRef sendBuffer);

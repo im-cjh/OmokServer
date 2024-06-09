@@ -5,6 +5,12 @@
 #include "Room.h"
 #include "Player.h"
 
+Listener::Listener(wstring ip, INT16 port, SessionFactory pSessionFactory)
+{
+	Init(ip, port);
+	_sessionFactory = pSessionFactory;
+}
+
 Listener::~Listener()
 {
 	closesocket(_socket);
@@ -22,8 +28,9 @@ void Listener::StartAccept()
 		if (clientSocket == INVALID_SOCKET)
 			return;
 
-		//SessionRef session = make_shared<Session>();
-		PlayerRef session = make_shared<Player>();
+		SessionRef session = _sessionFactory();
+
+		//PlayerRef session = make_shared<Player>();
 		session->SetSocket(clientSocket);
 		session->SetAddr(clientAddr);
 
@@ -31,7 +38,7 @@ void Listener::StartAccept()
 		GIocpCore.Register(session);
 
 
-		session->Connect();
+		session->OnConnected();
 	}
 }
 

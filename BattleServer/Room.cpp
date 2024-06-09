@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Session.h"
 #include "PacketHandler.h"
+#include "MyBuffer.h"
 
 void Room::Enter(PlayerRef pPlayer)
 {
@@ -70,7 +71,7 @@ bool Room::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 {
 	int cnt = 1;
 
-	for (int y = pYpos + 1; y < pYpos + 5; y += 1)
+	for (int y = pYpos+1; y < pYpos + 5; y += 1)
 	{
 		if (y < BOARD_MAX&& _board[y][pXpos] != pStoneType)
 			break;
@@ -79,7 +80,7 @@ bool Room::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 			return true;
 	}
 	cnt = 1;
-	for (int y = pYpos - 1; y > pYpos - 5; y -= 1)
+	for (int y = pYpos-1; y > pYpos - 5; y -= 1)
 	{
 		if (y >= 0 && _board[y][pXpos] != pStoneType)
 			break;
@@ -88,9 +89,9 @@ bool Room::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 			return true;
 	}
 	cnt = 1;
-	for (int x = pXpos + 1; x < pXpos + 5; x += 1)
+	for (int x = pXpos+1; x < pXpos + 5; x += 1)
 	{
-		if (x < BOARD_MAX&& _board[pYpos][x] != pStoneType)
+		if (x < BOARD_MAX && _board[pYpos][x] != pStoneType)
 			break;
 		cnt += 1;
 		if (cnt >= 5)

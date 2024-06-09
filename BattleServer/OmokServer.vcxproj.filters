@@ -48,6 +48,9 @@
     <ClCompile Include="Session.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Protocol.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -57,21 +60,6 @@
     <ClCompile Include="MyBuffer.cpp" />
     <ClCompile Include="PacketHandler.cpp">
       <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Protocol.pb.cc">
-      <Filter>Protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="BattleServerSession.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerListener.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="SessionFactory.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerListener.cpp">
-      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +99,9 @@
     <ClInclude Include="Session.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="Protocol.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -121,20 +112,19 @@
     <ClInclude Include="PacketHandler.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Protocol.pb.h">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Protocol.proto">
       <Filter>Protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="BattleServerSession.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerListener.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="SessionFactory.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerListener.h">
-      <Filter>Network</Filter>
-    </ClInclude>
+    </None>
+    <None Include="GenPackets.bat">
+      <Filter>Protocol</Filter>
+    </None>
+    <None Include="protoc.exe">
+      <Filter>Protocol</Filter>
+    </None>
+    <None Include="Protocol.cs">
+      <Filter>Protocol</Filter>
+    </None>
   </ItemGroup>
 </Project>
