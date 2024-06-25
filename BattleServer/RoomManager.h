@@ -4,9 +4,9 @@ class Room;
 class RoomManager
 {
 public:
-	static int roomID;
+	static int SRoomID;
 private:
-	vector<Room> _rooms;
+	unordered_map<int, Room> _rooms;
 	//unordered_map<INT32, Room> mRooms;
 public:
 	void Init();
@@ -18,7 +18,7 @@ public:
 	void BroadcastContent(BYTE* pBuffer, INT32 pLen);
 	void BroadcastChat(BYTE* pBuffer, INT32 pLen);
 
-	void HandleMakeFastRoom(OmokServerSessionRef pSession);
+	void HandleMakeFastRoom(BYTE* pBuffer, INT32 pLen);
 	void HandleEnterRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer);
 	void HandleQuitRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer);
 	

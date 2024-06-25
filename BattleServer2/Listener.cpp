@@ -29,7 +29,7 @@ void Listener::StartAccept()
 			return;
 
 		SessionRef session = _sessionFactory();
-		cout << "Accepted\n";
+
 		//PlayerRef session = make_shared<Player>();
 		session->SetSocket(clientSocket);
 		session->SetAddr(clientAddr);

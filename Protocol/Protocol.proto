@@ -80,9 +80,15 @@ message S2CBattleServerAddr
 {
 	string battleServerIp = 1;
 	int32 port = 2;
+	int32 roomID = 3;
 }
 
 message S2CRoomID
+{
+	int32 roomID = 1;
+}
+
+message S2CRoomCreated
 {
 	int32 roomID = 1;
 }

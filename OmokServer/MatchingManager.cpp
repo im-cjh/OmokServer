@@ -33,7 +33,8 @@ void MatchingManager::tryMatchmaking()
          // 두 플레이어에게 배틀 서버 IP, PORT 전달
         Protocol::S2CBattleServerAddr pkt;
         pkt.set_battleserverip("127.0.0.1");
-        pkt.set_port(7777);
+        pkt.set_port(8888);
+        pkt.set_roomid(roomID);
         int len = 0;
         BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKIING_MESSAGE, &len);
         
@@ -41,7 +42,7 @@ void MatchingManager::tryMatchmaking()
         player2->Send(sendBuffer, len);
 
         //배틀서버에 방 만들기 요청
-        GBattleServer->MakeRoom();
+        GBattleServer->MakeRoom(roomID);
         break;
     }
 }

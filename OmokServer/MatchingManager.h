@@ -3,6 +3,7 @@
 class MatchingManager
 {
 public:
+    
     MatchingManager() = default;
 
 public:
@@ -14,6 +15,7 @@ private:
     void communicateWithBattleServer(const PlayerRef player1, const PlayerRef player2);
 
 private:
+    int roomID = 1000;
     queue<PlayerRef> _players;
     mutex queueMutex;
 };

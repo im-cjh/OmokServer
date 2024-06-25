@@ -5,6 +5,10 @@
 #include "PacketHandler.h"
 #include "MyBuffer.h"
 
+Room::Room(INT32 pRoomID) : roomID(pRoomID)
+{
+}
+
 void Room::Enter(PlayerRef pPlayer)
 {
 	{

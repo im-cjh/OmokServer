@@ -20,12 +20,12 @@ Session::~Session()
 void Session::Send(BYTE* buffer, INT32 len)
 {
 	SendEvent* sendEvent = new SendEvent();
-	sendEvent->owner = shared_from_this(); 
+	sendEvent->owner = shared_from_this();
 	sendEvent->buffer.resize(len);
 	::memcpy(sendEvent->buffer.data(), buffer, len);
-	   
+
 	lock_guard<mutex> lock(_mutex);
-	RegisterSend(sendEvent); 
+	RegisterSend(sendEvent);
 }
 
 void Session::Connect(INT16 port)
@@ -138,13 +138,6 @@ void Session::ProcessDisconnect()
 	_disconnectEvent.owner = nullptr; // RELEASE_REF
 }
 
-void Session::OnConnected()
-{
-	_connected.store(true);
-	cout << "OnConnected\n";
-	RegisterRecv();
-}
-
 void Session::ProcessRecv(INT32 numOfBytes)
 {
 	_recvEvent.owner = nullptr;
@@ -190,4 +183,11 @@ void Session::ProcessSend(SendEvent* sendEvent, INT32 numOfBytes)
 void Session::HandleError(INT32 errorCode)
 {
 
+}
+
+void Session::OnConnected(void)
+{
+	_connected.store(true);
+
+	RegisterRecv();
 }

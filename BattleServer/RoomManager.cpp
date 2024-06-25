@@ -7,22 +7,25 @@
 #include "PacketHandler.h"
 
 RoomManager GRoomManager;
-int RoomManager::roomID = 0;
+int RoomManager::SRoomID = 0;
 
 void RoomManager::Init()
 {
-	_rooms.push_back(Room{ roomID++, u8"test2", "cjh", 1 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
-	_rooms.push_back(Room{ roomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 });
+	_rooms[SRoomID] = Room{ SRoomID++, u8"test2", "cjh", 1 };
+	_rooms[SRoomID] = Room{ SRoomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 };
+	_rooms[SRoomID] = Room{ SRoomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ2", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 };
+	_rooms[SRoomID] = Room{ SRoomID++, u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨ÀÇ ¹æ3", u8"¹Ì´Ï¸Ê¾Èº¸´Â½¨", 2 };
 }
 
 int RoomManager::AddRoom(PlayerRef p1, PlayerRef p2)
 {
-	Room room(++roomID, u8"ºü¸¥´ëÀü¹æ", u8"´ëÃæ ÀÌ¸§", 2 );
+	int roomID = SRoomID++;
+	
+
+	Room room(roomID++, u8"ºü¸¥´ëÀü¹æ", u8"´ëÃæ ÀÌ¸§", 2 );
 	room.Enter(p1);
 	room.Enter(p2);
-	_rooms.push_back(move(room)); 
+	_rooms[roomID] = move(room);
 
 	return roomID;
 }
@@ -31,8 +34,9 @@ void RoomManager::BroadcastRooms(SessionRef pSession)
 {
 	Protocol::S2CRoomList ret;
 	
-	for (auto& a : _rooms)
+	for (auto& pair : _rooms)
 	{
+		Room& a = pair.second;
 		Protocol::P_Room* r = ret.add_rooms();
 		r->set_roomid(a.roomID);
 		r->set_roomname(a.roomName);
@@ -90,18 +94,28 @@ void RoomManager::BroadcastChat(BYTE* pBuffer, INT32 pLen)
 	}
 }
 
-void RoomManager::HandleMakeFastRoom(OmokServerSessionRef pSession)
+void RoomManager::HandleMakeFastRoom(BYTE* pBuffer, INT32 pLen)
 {
-	int ID = roomID;
-	_rooms.push_back(Room{ roomID++, u8"test2", "cjh", 1 });
-
 	Protocol::S2CRoomID pkt;
-	pkt.set_roomid(ID);
+	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
+	{
+		INT32 roomID = pkt.roomid();
+		_rooms[roomID] = Room{roomID};
 
-	int len = 0;
-	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MAKE_FAST_ROOM_MESSAGE,&len);
+		Protocol::S2CRoomCreated pkt;
+		pkt.set_roomid(roomID);
 
-	pSession->Send(sendBuffer, len);
+		int len = 0;
+		BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::ROOM_CREATED_MESSAGE, &len);
+
+		GOmokServer->Send(sendBuffer, len);
+
+		//for (auto& player : _rooms[roomID].GetPlayers())
+		//{
+		//	player->Send(sendBuffer, len);
+		//}
+	}
+
 }
 
 void RoomManager::HandleEnterRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer)

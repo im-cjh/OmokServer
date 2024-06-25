@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "OmokServerSession.h"
+#include "RoomManager.h"
 
 OmokServerSessionRef GOmokServer;
 
@@ -25,22 +26,15 @@ void OmokServerSession::Connect(INT16 port)
     
 }
 
-void OmokServerSession::HandlePacket(BYTE* buffer, INT32 len, ePacketID ID)
+void OmokServerSession::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 {
 	switch (ID)
 	{
-	case MAKE_FAST_ROOM_MESSAGE:
-    {
-        int a = 23;
-        cout << a;
-    }
+	case MAKE_FAST_ROOM_MESSAGE: 
+        GRoomManager.HandleMakeFastRoom(pBuffer, pLen);
 		break;
 	default:
 		break;
 	}
 }
 
-void OmokServerSession::HandleMakeFastRoom(BYTE* buffer, INT32 len)
-{
-
-}

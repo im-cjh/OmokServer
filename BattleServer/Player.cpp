@@ -24,7 +24,6 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 	case ePacketID::CHAT_MESSAGE:
 		GRoomManager.BroadcastChat(pBuffer, pLen);
 		break;
-
 	case ePacketID::CONTENT_MESSAGE:
 		GRoomManager.BroadcastContent(pBuffer, pLen);
 		break;
@@ -37,9 +36,12 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 	case ePacketID::QUIT_ROOM_MESSAGE:
 		GRoomManager.HandleQuitRoom(pBuffer, pLen, dynamic_pointer_cast<Player>(shared_from_this()));
 		break;
-	case ePacketID::MAKE_FAST_ROOM_MESSAGE:
-		int a = 13;
-		cout << a;
+	case ePacketID::ROOM_CREATED_MESSAGE:
+		cout << "ROOM_CREATED_MESSAGE\n";
+		break;
+	case ePacketID::ENTER_FAST_ROOM:
+		GRoomManager.HandleEnterRoom(pBuffer, pLen, dynamic_pointer_cast<Player>(shared_from_this()));
+		cout << "ENTER_FAST_ROOM\n";
 		break;
 	}
 }

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "PlayerListener.h"
 #include "ServerListener.h"
 #include "SocketUtils.h"
@@ -14,13 +14,13 @@ int main()
     GRoomManager.Init();
     PlayerListener playerListener(L"127.0.0.1", 8888);
     ServerListener serverListener(L"127.0.0.1", 8877);
-    
+
 
     this_thread::sleep_for(1s);
     GOmokServer = make_shared<OmokServerSession>();
     GOmokServer->Connect(7788);
-    
-    for (int i = 0; i < 1; i += 1)
+
+    for (int i = 0; i < 10; i += 1)
     {
         Protocol::S2CRoomID pkt;
         pkt.set_roomid(15);
@@ -42,7 +42,7 @@ int main()
     thread tPlayerListener(&Listener::StartAccept, &playerListener);
     thread tServerListener(&Listener::StartAccept, &serverListener);
 
-    // ¸ðµç ½º·¹µå°¡ Á¾·áµÉ ¶§±îÁö ´ë±â
+    // ëª¨ë“  ìŠ¤ë ˆë“œê°€ ì¢…ë£Œë  ë•Œê¹Œì§€ ëŒ€ê¸°
     for (auto& workerThread : workerThreads)
         workerThread.join();
     tPlayerListener.join();

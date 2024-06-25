@@ -28,10 +28,13 @@ void BattleServerSession::Connect(INT16 port)
 	
 }
 
-void BattleServerSession::MakeRoom(void)
+void BattleServerSession::MakeRoom(INT32 pRoomID)
 {
     int len = 0;
-    BYTE* sendBuffer = PacketHandler::SerializeMiniPacket(ePacketID::MAKE_FAST_ROOM_MESSAGE, &len);
+    Protocol::S2CRoomID pkt;
+    pkt.set_roomid(pRoomID);
+
+    BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MAKE_FAST_ROOM_MESSAGE, &len);
 
     Session::Send(sendBuffer, len);
 }
@@ -41,8 +44,10 @@ void BattleServerSession::HandlePacket(BYTE* buffer, INT32 len, ePacketID ID)
 	switch (ID)
 	{
 	case MAKE_FAST_ROOM_MESSAGE:
-        int a = 3;
-        cout << a;
+        cout << 3;
 		break;
+    case ePacketID::ENTER_FAST_ROOM:
+        cout << "BattleServerSession Called\n";
+        break;
 	}
 }
