@@ -48,62 +48,30 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.post('/signup', async (req, res) => {
+app.post('/signup', async (req, res) =>
+{
     // 클라이언트로부터 전송된 요청 본문에서 이메일과 패스워드 추출
-    const { email, pwd, name, nickname } = req.body;
+    const { email, pwd, name } = req.body;
 
     // MongoDB와 연결
     const client = new MongoClient('mongodb://localhost:27017');
     await client.connect();
 
-    try {
-        // 데이터베이스 선택
+    try
+    {
         const db = client.db('discord');
-
-        // 사용자 컬렉션 선택
-        const collection = db.collection('users');
-
         // 이메일을 기준으로 사용자 정보 조회
-        const user = { email: email, pwd: pwd, name: name, nickname: nickname };
+        const user = { email: email, pwd: pwd, name: name };
         const result = await db.collection('users').insertOne(user);
     }
-    catch (error) {
+    catch (error)
+    {
         // 오류 발생 시
         console.error('데이터베이스 작업 중 오류 발생:', error.code);
         res.status(500).json({ message: '데이터베이스 작업 중 오류가 발생했습니다.' });
     }
-    finally {
-        // MongoDB 클라이언트 연결 종료
-        res.status(200).json({ message: '사용자 생성 완료.' });
-        await client.close();
-    }
-});
-
-app.post('/profile', async (req, res) => {
-    // 클라이언트로부터 전송된 요청 본문에서 이메일과 패스워드 추출
-    const { email, pwd, name, nickname } = req.body;
-
-    // MongoDB와 연결
-    const client = new MongoClient('mongodb://localhost:27017');
-    await client.connect();
-
-    try {
-        // 데이터베이스 선택
-        const db = client.db('discord');
-
-        // 사용자 컬렉션 선택
-        const collection = db.collection('users');
-
-        // 이메일을 기준으로 사용자 정보 조회
-        const user = { email: email, pwd: pwd, name: name, nickname: nickname };
-        const result = await db.collection('users').insertOne(user);
-    }
-    catch (error) {
-        // 오류 발생 시
-        console.error('데이터베이스 작업 중 오류 발생:', error.code);
-        res.status(500).json({ message: '데이터베이스 작업 중 오류가 발생했습니다.' });
-    }
-    finally {
+    finally
+    {
         // MongoDB 클라이언트 연결 종료
         res.status(200).json({ message: '사용자 생성 완료.' });
         await client.close();
