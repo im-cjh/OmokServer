@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "MatchingManager.h"
 #include "Protocol.pb.h"
+
 void Player::setInfo(BYTE* pBuffer, INT32 pLen)
 {
 	Protocol::C2SLoginSuccess pkt;
@@ -10,7 +11,6 @@ void Player::setInfo(BYTE* pBuffer, INT32 pLen)
 		_name = pkt.username();
 		_ID = pkt.userid();
 	}
-	//GPlayerManager
 }
 
 void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
@@ -26,10 +26,10 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 	case ePacketID::CONTENT_MESSAGE:
 		GRoomManager.BroadcastContent(pBuffer, pLen);
 		break;
-	case ePacketID::ENTER_ROOM_MESSAGE:
+	case ePacketID::ENTER_ROOM:
 		GRoomManager.HandleEnterRoom(pBuffer, pLen, dynamic_pointer_cast<Player>(shared_from_this()));
 		break;
-	case ePacketID::LOGIN_SUCCESS_MESSAGE:
+	case ePacketID::LOGIN_SUCCESS:
 		setInfo(pBuffer, pLen);
 		break;
 	case ePacketID::QUIT_ROOM_MESSAGE:
@@ -37,10 +37,6 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 		break;
 	case ePacketID::MATCHMAKIING_MESSAGE:
 		GMatchMaker.AddToQueueAndMatch(dynamic_pointer_cast<Player>(shared_from_this()));
-		break;
-	case ePacketID::MAKE_FAST_ROOM_MESSAGE:
-		int a = 3;
-		cout << a;
 		break;
 	}
 }

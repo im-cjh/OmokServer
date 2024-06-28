@@ -9,7 +9,8 @@ enum eStoneType : UINT8
 
 class Room
 {
-	enum {BOARD_MAX = 19};
+	enum {BOARD_MAX = 19, maxPlayers = 2};
+
 public:
 	INT32 roomID;
 	string roomName ="빠른대전";
@@ -54,5 +55,6 @@ public:
 
 	void CheckOmok(INT32 pYpos, INT32 pXpos, eStoneType pStoneType);
 	bool DFS(int pYpos, int pXpos, eStoneType pStoneType);
+	void CheckAllPlayersConnected();
 };
 

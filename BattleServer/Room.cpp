@@ -16,6 +16,8 @@ void Room::Enter(PlayerRef pPlayer)
 		_players.push_back(pPlayer);
 	}
 
+	CheckAllPlayersConnected();
+
 	Protocol::S2CEnterRoom pkt;
 	for (int i = 0; i < _players.size(); i += 1)
 	{
@@ -111,5 +113,24 @@ bool Room::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 			return true;
 	}
 	return false;
+}
+
+void Room::CheckAllPlayersConnected()
+{
+	lock_guard<mutex>lg(_mutex);
+	if (_players.size() != maxPlayers)
+		return;
+
+	
+	Protocol::S2CRoomID pkt;
+	pkt.set_roomid(roomID);
+
+	int len = 0;
+	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::GAME_START_MESSAGE, &len);
+
+	Broadcast(sendBuffer, len);
+
+	delete[] sendBuffer;
+	
 }
 

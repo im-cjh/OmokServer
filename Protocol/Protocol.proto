@@ -92,3 +92,4 @@ message S2CRoomCreated
 {
 	int32 roomID = 1;
 }
+

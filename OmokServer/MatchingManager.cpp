@@ -36,7 +36,7 @@ void MatchingManager::tryMatchmaking()
         pkt.set_port(8888);
         pkt.set_roomid(roomID);
         int len = 0;
-        BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKIING_MESSAGE, &len);
+        BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKED_MESSAGE, &len);
         
         player1->Send(sendBuffer, len);
         player2->Send(sendBuffer, len);
