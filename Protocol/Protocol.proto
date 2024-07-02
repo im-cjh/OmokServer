@@ -9,7 +9,7 @@ message P_Room
 	int32 num_players = 4;
 }
 
-message P_Player
+message P_LobbyPlayer
 {
 	string userName = 1;
 
@@ -55,7 +55,7 @@ message C2SLoginSuccess
 
 message S2CEnterRoom
 {
-	repeated P_Player players = 1;
+	repeated P_LobbyPlayer players = 1;
 }
 
 message S2CWinner
@@ -93,3 +93,14 @@ message S2CRoomCreated
 	int32 roomID = 1;
 }
 
+
+message S2CGameStart 
+{
+    repeated P_Player players = 1;
+}
+
+message P_Player 
+{
+    string username = 1;
+    int32 stonetype = 2; // 0: none, 1: black, 2: white
+}

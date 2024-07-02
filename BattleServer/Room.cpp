@@ -21,7 +21,7 @@ void Room::Enter(PlayerRef pPlayer)
 	Protocol::S2CEnterRoom pkt;
 	for (int i = 0; i < _players.size(); i += 1)
 	{
-		Protocol::P_Player* p = pkt.add_players();
+		Protocol::P_LobbyPlayer* p = pkt.add_players();
 		p->set_username(_players[i]->getName());
 	}
 
@@ -40,7 +40,7 @@ void Room::Quit(PlayerRef pPlayer)
 			_players.erase(it);
 	}
 
-	Protocol::P_Player pkt;
+	Protocol::P_LobbyPlayer pkt;
 	pkt.set_username(pPlayer->getName());
 	cout << pPlayer->getName();
 	int len = 0;
@@ -117,20 +117,26 @@ bool Room::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 
 void Room::CheckAllPlayersConnected()
 {
-	lock_guard<mutex>lg(_mutex);
-	if (_players.size() != maxPlayers)
-		return;
+	// 예시로 2명의 플레이어가 연결되면 게임 시작
+	if (_players.size() == 2)
+	{
+		// 흑/백 나누기
+		_players[0]->SetStoneType(eStoneType::BLACK);
+		_players[1]->SetStoneType(eStoneType::WHITE);
 
-	
-	Protocol::S2CRoomID pkt;
-	pkt.set_roomid(roomID);
+		// 흑/백 정보를 클라이언트에게 전송
+		Protocol::S2CGameStart pkt;
+		for (const auto& player : _players)
+		{
+			Protocol::P_Player* p = pkt.add_players();
+			p->set_username(player->getName());
+			p->set_stonetype(static_cast<int>(player->GetStoneType()));
+		}
 
-	int len = 0;
-	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::GAME_START_MESSAGE, &len);
-
-	Broadcast(sendBuffer, len);
-
-	delete[] sendBuffer;
-	
+		int len = 0;
+		BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::GAME_START_MESSAGE, &len);
+		Broadcast(sendBuffer, len);
+		delete[] sendBuffer;
+	}
 }
 

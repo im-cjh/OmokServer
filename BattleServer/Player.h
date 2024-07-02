@@ -1,5 +1,6 @@
 #pragma once
 #include "Session.h"
+#include "Room.h"
 
 class Player : public Session
 {
@@ -11,6 +12,7 @@ private:
 	INT32 _ID = -1;
 	string _name = u8"default name";
 	SOCKET _battleSocket;
+	eStoneType _stoneType;
 
 public:
 	Player() : Session()
@@ -37,6 +39,9 @@ public:
 	{
 		return _battleSocket;
 	}
+
+	void SetStoneType(eStoneType stoneType) { _stoneType = stoneType; }
+	eStoneType GetStoneType() const { return _stoneType; }
 	// Session을(를) 통해 상속됨
 	void HandlePacket(BYTE* buffer, INT32 len, ePacketID ID) override;
 };

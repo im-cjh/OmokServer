@@ -5,6 +5,7 @@
 #include "PacketHandler.h"
 #include "MyBuffer.h"
 #include "Protocol.pb.h"
+
 void Room::Enter(PlayerRef pPlayer)
 {
 	{
@@ -15,12 +16,12 @@ void Room::Enter(PlayerRef pPlayer)
 	Protocol::S2CEnterRoom pkt;
 	for (int i = 0; i < _players.size(); i += 1)
 	{
-		Protocol::P_Player* p = pkt.add_players();
+		Protocol::P_LobbyPlayer* p = pkt.add_players();
 		p->set_username(_players[i]->getName());
 	}
 
 	int len = 0;
-	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::ENTER_ROOM_MESSAGE, &len);
+	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::ENTER_FAST_ROOM, &len);
 	Broadcast(sendBuffer, len);
 	delete sendBuffer;
 }
@@ -34,7 +35,8 @@ void Room::Quit(PlayerRef pPlayer)
 			_players.erase(it);
 	}
 
-	Protocol::P_Player pkt;
+	//프로토콜 P_Player  변경됨
+	Protocol::P_LobbyPlayer pkt;
 	pkt.set_username(pPlayer->getName());
 	cout << pPlayer->getName();
 	int len = 0;
