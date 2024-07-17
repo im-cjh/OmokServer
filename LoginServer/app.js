@@ -30,7 +30,7 @@ app.post('/login', async (req, res) => {
         if (user) {
             countID += 1;
             // 사용자가 존재할 때의 로직
-            res.status(200).json({ id: user.userid, nickname: user.nickname, name: user.name});
+            res.status(200).json({ id: user.userid, name: user.name});
         }
         else {
             // 사용자가 존재하지 않을 때의 로직

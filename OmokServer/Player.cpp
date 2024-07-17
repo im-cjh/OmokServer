@@ -36,6 +36,7 @@ void Player::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 		GRoomManager.HandleQuitRoom(pBuffer, pLen, dynamic_pointer_cast<Player>(shared_from_this()));
 		break;
 	case ePacketID::MATCHMAKIING_MESSAGE:
+		cout << "MATCHMAKIING_MESSAGE\n";
 		GMatchMaker.AddToQueueAndMatch(dynamic_pointer_cast<Player>(shared_from_this()));
 		break;
 	}

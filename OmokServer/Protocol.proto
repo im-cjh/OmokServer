@@ -31,6 +31,7 @@ message C2SEnterRoom
 {
 	int32 roomID = 1;
 	int32 userID = 2;
+	string userName = 3;
 }
 
 message C2SQuitRoom
@@ -101,6 +102,6 @@ message S2CGameStart
 
 message P_Player 
 {
-    string username = 1;
-    int32 stonetype = 2; // 0: none, 1: black, 2: white
+    string userName = 1;
+    int32 stoneType = 2; // 0: none, 1: black, 2: white
 }

@@ -21,6 +21,7 @@ private:
 	vector<PlayerRef> _players;
 	mutex _mutex;
 	eStoneType _board[BOARD_MAX][BOARD_MAX];
+	atomic<bool> flag;
 
 public:
 	Room(const Room& room) = delete;

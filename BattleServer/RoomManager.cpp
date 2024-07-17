@@ -123,6 +123,8 @@ void RoomManager::HandleEnterRoom(BYTE* pBuffer, INT32 pLen, PlayerRef pPlayer)
 	Protocol::C2SEnterRoom pkt;
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
+		pPlayer->setName(pkt.username());
+		cout << pkt.username() << "Ddddd\n";
 		auto a = pkt.roomid();
 		_rooms[pkt.roomid()].Enter(pPlayer);
 	}

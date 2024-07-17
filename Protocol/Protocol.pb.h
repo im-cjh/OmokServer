@@ -922,9 +922,24 @@ class C2SEnterRoom final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kUserNameFieldNumber = 3,
     kRoomIDFieldNumber = 1,
     kUserIDFieldNumber = 2,
   };
+  // string userName = 3;
+  void clear_username();
+  const std::string& username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username();
+  PROTOBUF_NODISCARD std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
   // int32 roomID = 1;
   void clear_roomid();
   int32_t roomid() const;
@@ -951,6 +966,7 @@ class C2SEnterRoom final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
     int32_t roomid_;
     int32_t userid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -2867,10 +2883,10 @@ class P_Player final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kUsernameFieldNumber = 1,
-    kStonetypeFieldNumber = 2,
+    kUserNameFieldNumber = 1,
+    kStoneTypeFieldNumber = 2,
   };
-  // string username = 1;
+  // string userName = 1;
   void clear_username();
   const std::string& username() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -2884,7 +2900,7 @@ class P_Player final :
   std::string* _internal_mutable_username();
   public:
 
-  // int32 stonetype = 2;
+  // int32 stoneType = 2;
   void clear_stonetype();
   int32_t stonetype() const;
   void set_stonetype(int32_t value);
@@ -3323,6 +3339,56 @@ inline void C2SEnterRoom::_internal_set_userid(int32_t value) {
 inline void C2SEnterRoom::set_userid(int32_t value) {
   _internal_set_userid(value);
   // @@protoc_insertion_point(field_set:Protocol.C2SEnterRoom.userID)
+}
+
+// string userName = 3;
+inline void C2SEnterRoom::clear_username() {
+  _impl_.username_.ClearToEmpty();
+}
+inline const std::string& C2SEnterRoom::username() const {
+  // @@protoc_insertion_point(field_get:Protocol.C2SEnterRoom.userName)
+  return _internal_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void C2SEnterRoom::set_username(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.C2SEnterRoom.userName)
+}
+inline std::string* C2SEnterRoom::mutable_username() {
+  std::string* _s = _internal_mutable_username();
+  // @@protoc_insertion_point(field_mutable:Protocol.C2SEnterRoom.userName)
+  return _s;
+}
+inline const std::string& C2SEnterRoom::_internal_username() const {
+  return _impl_.username_.Get();
+}
+inline void C2SEnterRoom::_internal_set_username(const std::string& value) {
+  
+  _impl_.username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* C2SEnterRoom::_internal_mutable_username() {
+  
+  return _impl_.username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* C2SEnterRoom::release_username() {
+  // @@protoc_insertion_point(field_release:Protocol.C2SEnterRoom.userName)
+  return _impl_.username_.Release();
+}
+inline void C2SEnterRoom::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.username_.SetAllocated(username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.username_.IsDefault()) {
+    _impl_.username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C2SEnterRoom.userName)
 }
 
 // -------------------------------------------------------------------
@@ -4013,12 +4079,12 @@ S2CGameStart::players() const {
 
 // P_Player
 
-// string username = 1;
+// string userName = 1;
 inline void P_Player::clear_username() {
   _impl_.username_.ClearToEmpty();
 }
 inline const std::string& P_Player::username() const {
-  // @@protoc_insertion_point(field_get:Protocol.P_Player.username)
+  // @@protoc_insertion_point(field_get:Protocol.P_Player.userName)
   return _internal_username();
 }
 template <typename ArgT0, typename... ArgT>
@@ -4026,11 +4092,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void P_Player::set_username(ArgT0&& arg0, ArgT... args) {
  
  _impl_.username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Protocol.P_Player.username)
+  // @@protoc_insertion_point(field_set:Protocol.P_Player.userName)
 }
 inline std::string* P_Player::mutable_username() {
   std::string* _s = _internal_mutable_username();
-  // @@protoc_insertion_point(field_mutable:Protocol.P_Player.username)
+  // @@protoc_insertion_point(field_mutable:Protocol.P_Player.userName)
   return _s;
 }
 inline const std::string& P_Player::_internal_username() const {
@@ -4045,7 +4111,7 @@ inline std::string* P_Player::_internal_mutable_username() {
   return _impl_.username_.Mutable(GetArenaForAllocation());
 }
 inline std::string* P_Player::release_username() {
-  // @@protoc_insertion_point(field_release:Protocol.P_Player.username)
+  // @@protoc_insertion_point(field_release:Protocol.P_Player.userName)
   return _impl_.username_.Release();
 }
 inline void P_Player::set_allocated_username(std::string* username) {
@@ -4060,10 +4126,10 @@ inline void P_Player::set_allocated_username(std::string* username) {
     _impl_.username_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.P_Player.username)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.P_Player.userName)
 }
 
-// int32 stonetype = 2;
+// int32 stoneType = 2;
 inline void P_Player::clear_stonetype() {
   _impl_.stonetype_ = 0;
 }
@@ -4071,7 +4137,7 @@ inline int32_t P_Player::_internal_stonetype() const {
   return _impl_.stonetype_;
 }
 inline int32_t P_Player::stonetype() const {
-  // @@protoc_insertion_point(field_get:Protocol.P_Player.stonetype)
+  // @@protoc_insertion_point(field_get:Protocol.P_Player.stoneType)
   return _internal_stonetype();
 }
 inline void P_Player::_internal_set_stonetype(int32_t value) {
@@ -4080,7 +4146,7 @@ inline void P_Player::_internal_set_stonetype(int32_t value) {
 }
 inline void P_Player::set_stonetype(int32_t value) {
   _internal_set_stonetype(value);
-  // @@protoc_insertion_point(field_set:Protocol.P_Player.stonetype)
+  // @@protoc_insertion_point(field_set:Protocol.P_Player.stoneType)
 }
 
 #ifdef __GNUC__

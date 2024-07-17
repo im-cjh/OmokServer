@@ -24,9 +24,9 @@ public:
 
 	virtual void Connect(INT16 port=0) override;
 
-	void setName(string&& pName)
+	void setName(const string& pName)
 	{
-		_name = move(pName);
+		_name = pName;
 	}
 	void setInfo(BYTE* buffer, INT32 len);
 

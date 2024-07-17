@@ -25,7 +25,7 @@ void MatchingManager::tryMatchmaking()
         {
             std::lock_guard<std::mutex> lock(queueMutex);
             if (_players.size() < 2)
-                continue; // 큐에 두 명 이상의 플레이어가 없으면 종료
+                break; // 큐에 두 명 이상의 플레이어가 없으면 종료
 
             player1 = _players.front(); _players.pop();
             player2 = _players.front(); _players.pop();
