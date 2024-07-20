@@ -16,6 +16,9 @@
     <Filter Include="Network">
       <UniqueIdentifier>{d8bf6b8c-9153-4c9d-8751-e3941565fcb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Room">
+      <UniqueIdentifier>{ee51abaf-cf89-4f8b-9dab-d9514986672c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
@@ -24,39 +27,8 @@
     <ClCompile Include="pch.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="SocketUtils.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="RecvBuffer.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomManager.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="IocpCore.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="IocpEvent.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Listener.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Session.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="MatchingManager.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="MyBuffer.cpp" />
-    <ClCompile Include="PacketHandler.cpp">
-      <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Protocol.pb.cc">
       <Filter>Protocol</Filter>
@@ -67,59 +39,22 @@
     <ClCompile Include="ServerListener.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="SessionFactory.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerListener.cpp">
       <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyPlayer.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyRoomManager.cpp">
+      <Filter>Game\Room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Macro.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="SocketUtils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="RecvBuffer.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketHeader.h">
-      <Filter>Protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="RoomManager.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="IocpCore.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="IocpEvent.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Listener.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Session.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="MatchingManager.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="MyBuffer.h" />
-    <ClInclude Include="PacketHandler.h">
-      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Protocol.pb.h">
       <Filter>Protocol</Filter>
@@ -130,11 +65,14 @@
     <ClInclude Include="ServerListener.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="SessionFactory.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerListener.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyPlayer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyRoomManager.h">
+      <Filter>Game\Room</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

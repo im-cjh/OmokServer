@@ -1,18 +1,18 @@
 #include "pch.h"
-#include "PlayerListener.h"
+#include "BattlePlayerListener.h"
 #include "ServerListener.h"
 #include "SocketUtils.h"
 #include "Protocol.pb.h"
 #include "PacketHeader.h"
-#include "RoomManager.h"
+#include "BattleRoomManager.h"
 #include "OmokServerSession.h"
 #include "PacketHandler.h"
 
 int main()
 {
     SocketUtils::Init();
-    GRoomManager.Init();
-    PlayerListener playerListener(L"127.0.0.1", 8888);
+    GBattleRoomManager.Init();
+    BattlePlayerListener playerListener(L"127.0.0.1", 8888);
     ServerListener serverListener(L"127.0.0.1", 8877);
     
 

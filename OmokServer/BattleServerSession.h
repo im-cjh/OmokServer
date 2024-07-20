@@ -5,7 +5,7 @@ class BattleServerSession : public Session
 {
 public:
 	BattleServerSession() : Session() {}
-	virtual void Connect(INT16 port=0) override;
+	virtual void Connect(INT16 port = 0) override;
 	void MakeRoom(INT32 pRoomID);
 private:
 	// Session을(를) 통해 상속됨

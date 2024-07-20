@@ -2,18 +2,18 @@
 #include "SocketUtils.h"
 #include "Protocol.pb.h"
 #include "PacketHeader.h"
-#include "RoomManager.h"
+#include "LobbyRoomManager.h"
 #include "Protocol.pb.h"
 #include "BattleServerSession.h"
 #include "PacketHandler.h"
-#include "Player.h"
+#include "LobbyPlayer.h"
 #include "PlayerListener.h"
 #include "ServerListener.h"
 
 int main()
 {
     SocketUtils::Init();
-    GRoomManager.Init();
+    GLobbyRoomManager.Init();
     PlayerListener playerListener(L"127.0.0.1", 7777);
     ServerListener serverListener(L"127.0.0.1", 7788);
 

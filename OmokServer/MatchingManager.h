@@ -3,21 +3,20 @@
 class MatchingManager
 {
 public:
-    
-    MatchingManager() = default;
+
+	MatchingManager() = default;
 
 public:
-    void AddToQueueAndMatch(PlayerRef player);
+	void AddToQueueAndMatch(LobbyPlayerRef player);
 
 private:
-    void tryMatchmaking();
-    void startGameSession(const PlayerRef player1, const PlayerRef player2);
-    void communicateWithBattleServer(const PlayerRef player1, const PlayerRef player2);
+	void tryMatchmaking();
+	void communicateWithBattleServer(const LobbyPlayerRef player1, const LobbyPlayerRef player2);
 
 private:
-    int roomID = 1000;
-    queue<PlayerRef> _players;
-    mutex queueMutex;
+	int roomID = 1000;
+	queue<LobbyPlayerRef> _players;
+	mutex queueMutex;
 };
 
 extern MatchingManager GMatchMaker;
