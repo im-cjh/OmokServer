@@ -52,7 +52,7 @@ void FastRoom::Enter(BattleServerPlayerRef pPlayer, ePacketID pPacketID)
 	}
 
 	int len = 0;
-	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::ENTER_ROOM_MESSAGE, &len);
+	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, pPacketID, &len);
 	Broadcast(sendBuffer, len);
 	delete sendBuffer;
 
