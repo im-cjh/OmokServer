@@ -14,7 +14,7 @@ private:
 	void communicateWithBattleServer(const LobbyPlayerRef player1, const LobbyPlayerRef player2);
 
 private:
-	int roomID = 1000;
+	atomic<int> roomID = 1;
 	queue<LobbyPlayerRef> _players;
 	mutex queueMutex;
 };

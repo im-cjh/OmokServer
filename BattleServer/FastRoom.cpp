@@ -58,11 +58,9 @@ void FastRoom::Enter(BattleServerPlayerRef pPlayer, ePacketID pPacketID)
 
 	if (_players.size() == 2)
 	{
-		// ��/�� ������
 		_players[0]->SetStoneType(eStoneType::BLACK);
 		_players[1]->SetStoneType(eStoneType::WHITE);
 
-		// ��/�� ������ Ŭ���̾�Ʈ���� ����
 		Protocol::S2CGameStart pkt;
 		for (const auto& player : _players)
 		{
@@ -123,6 +121,7 @@ void FastRoom::CheckOmok(int pYpos, int pXpos, eStoneType pStoneType)
 
 bool FastRoom::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 {
+	
 	int cnt = 1;
 
 	for (int y = pYpos + 1; y < pYpos + 5; y += 1)

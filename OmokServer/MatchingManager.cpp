@@ -35,7 +35,7 @@ void MatchingManager::tryMatchmaking()
 		Protocol::S2CBattleServerAddr pkt;
 		pkt.set_battleserverip("127.0.0.1");
 		pkt.set_port(8888);
-		pkt.set_roomid(roomID);
+		pkt.set_roomid(roomID++);
 		int len = 0;
 		BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKED_MESSAGE, &len);
 
