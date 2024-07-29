@@ -17,7 +17,7 @@ public:
 	void BroadcastRooms(SessionRef pSession);
 	void HandleEnterRoom(BYTE* pBuffer, INT32 pLen, LobbyPlayerRef pPlayer, ePacketID pPacketID);
 	void HandleQuitRoom(BYTE* pBuffer, INT32 pLen, LobbyPlayerRef pPlayer);
-
+	void HandleGameStart(BYTE* pBuffer, INT32 pLen, LobbyPlayerRef pPlayer);
 
 private:
 };

@@ -34,5 +34,9 @@ void LobbyPlayer::HandlePacket(BYTE* pBuffer, INT32 pLen, ePacketID ID)
 		cout << "MATCHMAKIING_MESSAGE\n";
 		GMatchMaker.AddToQueueAndMatch(dynamic_pointer_cast<LobbyPlayer>(shared_from_this()));
 		break;
+	case ePacketID::GAME_START_MESSAGE:
+		//배틀 서버
+		//GLobbyRoomManager
+		break;
 	}
 }

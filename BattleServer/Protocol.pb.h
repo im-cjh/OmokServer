@@ -2885,6 +2885,8 @@ class P_Player final :
   enum : int {
     kUserNameFieldNumber = 1,
     kStoneTypeFieldNumber = 2,
+    kWinFieldNumber = 3,
+    kLoseFieldNumber = 4,
   };
   // string userName = 1;
   void clear_username();
@@ -2909,6 +2911,24 @@ class P_Player final :
   void _internal_set_stonetype(int32_t value);
   public:
 
+  // int32 win = 3;
+  void clear_win();
+  int32_t win() const;
+  void set_win(int32_t value);
+  private:
+  int32_t _internal_win() const;
+  void _internal_set_win(int32_t value);
+  public:
+
+  // int32 lose = 4;
+  void clear_lose();
+  int32_t lose() const;
+  void set_lose(int32_t value);
+  private:
+  int32_t _internal_lose() const;
+  void _internal_set_lose(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.P_Player)
  private:
   class _Internal;
@@ -2919,6 +2939,8 @@ class P_Player final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
     int32_t stonetype_;
+    int32_t win_;
+    int32_t lose_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4147,6 +4169,46 @@ inline void P_Player::_internal_set_stonetype(int32_t value) {
 inline void P_Player::set_stonetype(int32_t value) {
   _internal_set_stonetype(value);
   // @@protoc_insertion_point(field_set:Protocol.P_Player.stoneType)
+}
+
+// int32 win = 3;
+inline void P_Player::clear_win() {
+  _impl_.win_ = 0;
+}
+inline int32_t P_Player::_internal_win() const {
+  return _impl_.win_;
+}
+inline int32_t P_Player::win() const {
+  // @@protoc_insertion_point(field_get:Protocol.P_Player.win)
+  return _internal_win();
+}
+inline void P_Player::_internal_set_win(int32_t value) {
+  
+  _impl_.win_ = value;
+}
+inline void P_Player::set_win(int32_t value) {
+  _internal_set_win(value);
+  // @@protoc_insertion_point(field_set:Protocol.P_Player.win)
+}
+
+// int32 lose = 4;
+inline void P_Player::clear_lose() {
+  _impl_.lose_ = 0;
+}
+inline int32_t P_Player::_internal_lose() const {
+  return _impl_.lose_;
+}
+inline int32_t P_Player::lose() const {
+  // @@protoc_insertion_point(field_get:Protocol.P_Player.lose)
+  return _internal_lose();
+}
+inline void P_Player::_internal_set_lose(int32_t value) {
+  
+  _impl_.lose_ = value;
+}
+inline void P_Player::set_lose(int32_t value) {
+  _internal_set_lose(value);
+  // @@protoc_insertion_point(field_set:Protocol.P_Player.lose)
 }
 
 #ifdef __GNUC__

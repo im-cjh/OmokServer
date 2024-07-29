@@ -88,7 +88,7 @@ void FastRoom::Quit(BattleServerPlayerRef pPlayer)
 
 	Protocol::P_LobbyPlayer pkt;
 	pkt.set_username(pPlayer->getName());
-	cout << pPlayer->getName();
+	cout << pPlayer->getName() << " is quit" << endl;
 	int len = 0;
 	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::QUIT_ROOM_MESSAGE, &len);
 	Broadcast(sendBuffer, len);
@@ -106,6 +106,9 @@ void FastRoom::Broadcast(BYTE* sendBuffer, INT32 pLen)
 
 void FastRoom::CheckOmok(int pYpos, int pXpos, eStoneType pStoneType)
 {
+	if (_board[pYpos][pXpos] != eStoneType::NONE)
+		return;
+
 	_board[pYpos][pXpos] = (pStoneType);
 	if (DFS(pYpos, pXpos, pStoneType))
 	{
@@ -153,7 +156,7 @@ bool FastRoom::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 	cnt = 1;
 	for (int x = pXpos - 1; x > pYpos - 5; x -= 1)
 	{
-		if (x >= 0 && _board[pYpos][x] != pStoneType)
+ 		if (x >= 0 && _board[pYpos][x] != pStoneType)
 			break;
 		cnt += 1;
 		if (cnt >= 5)

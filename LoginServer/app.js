@@ -7,8 +7,6 @@ app.use(bodyParser.json());
 // 로그인 요청을 처리하는 라우터
 const { MongoClient } = require('mongodb');
 
-var countID = 0;
-
 app.post('/login', async (req, res) => {
     // 클라이언트로부터 전송된 요청 본문에서 이메일과 패스워드 추출
     const { email, pwd } = req.body;
@@ -28,7 +26,6 @@ app.post('/login', async (req, res) => {
         const user = await collection.findOne({ email: email, pwd: pwd });
 
         if (user) {
-            countID += 1;
             // 사용자가 존재할 때의 로직
             res.status(200).json({ id: user.userid, name: user.name});
         }
@@ -61,7 +58,7 @@ app.post('/signup', async (req, res) =>
     {
         const db = client.db('discord');
         // 이메일을 기준으로 사용자 정보 조회
-        const user = { email: email, pwd: pwd, name: name };
+        const user = { email: email, pwd: pwd, name: name, win: 0, lose:0};
         const result = await db.collection('users').insertOne(user);
     }
     catch (error)
@@ -108,6 +105,47 @@ app.post('/messages', async (req, res) => {
         await client.close();
     }
 });
+
+app.post('/update_win_rate', async (req, res) => {
+    const { userid, flag } = req.body; // req.body에서 userid와 flag 추출
+
+    // MongoDB와 연결
+    const client = new MongoClient('mongodb://localhost:27017');
+    await client.connect();
+
+    try {
+        // 데이터베이스 선택
+        const db = client.db('discord');
+
+        // 사용자 컬렉션 선택
+        const collection = db.collection('users');
+
+        // 업데이트할 필드 결정
+        const updateField = flag ? { win: 1 } : { lose: 1 };
+
+        // 사용자 정보 업데이트
+        const result = await collection.updateOne(
+            { userid: userid }, // 업데이트할 문서 필터
+            { $inc: updateField } // win 또는 lose 값을 1 증가
+        );
+
+        if (result.matchedCount === 0) {
+            // 일치하는 사용자가 없을 경우
+            res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        } else {
+            // 업데이트 성공
+            res.status(200).json({ message: '사용자 정보가 성공적으로 업데이트되었습니다.' });
+        }
+    } catch (error) {
+        // 오류 발생 시
+        console.error('데이터베이스 작업 중 오류 발생:', error);
+        res.status(500).json({ message: '데이터베이스 작업 중 오류가 발생했습니다.' });
+    } finally {
+        // MongoDB 클라이언트 연결 종료
+        await client.close();
+    }
+});
+
 
 // 서버 시작
 const PORT = 3000;

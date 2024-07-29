@@ -250,6 +250,8 @@ PROTOBUF_CONSTEXPR P_Player::P_Player(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.stonetype_)*/0
+  , /*decltype(_impl_.win_)*/0
+  , /*decltype(_impl_.lose_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct P_PlayerDefaultTypeInternal {
   PROTOBUF_CONSTEXPR P_PlayerDefaultTypeInternal()
@@ -403,6 +405,8 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::P_Player, _impl_.username_),
   PROTOBUF_FIELD_OFFSET(::Protocol::P_Player, _impl_.stonetype_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::P_Player, _impl_.win_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::P_Player, _impl_.lose_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::P_Room)},
@@ -467,13 +471,13 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "rIp\030\001 \001(\t\022\014\n\004port\030\002 \001(\005\022\016\n\006roomID\030\003 \001(\005\""
   "\033\n\tS2CRoomID\022\016\n\006roomID\030\001 \001(\005\" \n\016S2CRoomC"
   "reated\022\016\n\006roomID\030\001 \001(\005\"3\n\014S2CGameStart\022#"
-  "\n\007players\030\001 \003(\0132\022.Protocol.P_Player\"/\n\010P"
+  "\n\007players\030\001 \003(\0132\022.Protocol.P_Player\"J\n\010P"
   "_Player\022\020\n\010userName\030\001 \001(\t\022\021\n\tstoneType\030\002"
-  " \001(\005b\006proto3"
+  " \001(\005\022\013\n\003win\030\003 \001(\005\022\014\n\004lose\030\004 \001(\005b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Protocol_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Protocol_2eproto = {
-    false, false, 972, descriptor_table_protodef_Protocol_2eproto,
+    false, false, 999, descriptor_table_protodef_Protocol_2eproto,
     "Protocol.proto",
     &descriptor_table_Protocol_2eproto_once, nullptr, 0, 17,
     schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
@@ -4174,6 +4178,8 @@ P_Player::P_Player(const P_Player& from)
   new (&_impl_) Impl_{
       decltype(_impl_.username_){}
     , decltype(_impl_.stonetype_){}
+    , decltype(_impl_.win_){}
+    , decltype(_impl_.lose_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -4185,7 +4191,9 @@ P_Player::P_Player(const P_Player& from)
     _this->_impl_.username_.Set(from._internal_username(), 
       _this->GetArenaForAllocation());
   }
-  _this->_impl_.stonetype_ = from._impl_.stonetype_;
+  ::memcpy(&_impl_.stonetype_, &from._impl_.stonetype_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.lose_) -
+    reinterpret_cast<char*>(&_impl_.stonetype_)) + sizeof(_impl_.lose_));
   // @@protoc_insertion_point(copy_constructor:Protocol.P_Player)
 }
 
@@ -4196,6 +4204,8 @@ inline void P_Player::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.username_){}
     , decltype(_impl_.stonetype_){0}
+    , decltype(_impl_.win_){0}
+    , decltype(_impl_.lose_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.username_.InitDefault();
@@ -4229,7 +4239,9 @@ void P_Player::Clear() {
   (void) cached_has_bits;
 
   _impl_.username_.ClearToEmpty();
-  _impl_.stonetype_ = 0;
+  ::memset(&_impl_.stonetype_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.lose_) -
+      reinterpret_cast<char*>(&_impl_.stonetype_)) + sizeof(_impl_.lose_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4253,6 +4265,22 @@ const char* P_Player::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.stonetype_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 win = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.win_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 lose = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.lose_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4302,6 +4330,18 @@ uint8_t* P_Player::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_stonetype(), target);
   }
 
+  // int32 win = 3;
+  if (this->_internal_win() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_win(), target);
+  }
+
+  // int32 lose = 4;
+  if (this->_internal_lose() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_lose(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4330,6 +4370,16 @@ size_t P_Player::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_stonetype());
   }
 
+  // int32 win = 3;
+  if (this->_internal_win() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_win());
+  }
+
+  // int32 lose = 4;
+  if (this->_internal_lose() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lose());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -4354,6 +4404,12 @@ void P_Player::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   if (from._internal_stonetype() != 0) {
     _this->_internal_set_stonetype(from._internal_stonetype());
   }
+  if (from._internal_win() != 0) {
+    _this->_internal_set_win(from._internal_win());
+  }
+  if (from._internal_lose() != 0) {
+    _this->_internal_set_lose(from._internal_lose());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -4377,7 +4433,12 @@ void P_Player::InternalSwap(P_Player* other) {
       &_impl_.username_, lhs_arena,
       &other->_impl_.username_, rhs_arena
   );
-  swap(_impl_.stonetype_, other->_impl_.stonetype_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(P_Player, _impl_.lose_)
+      + sizeof(P_Player::_impl_.lose_)
+      - PROTOBUF_FIELD_OFFSET(P_Player, _impl_.stonetype_)>(
+          reinterpret_cast<char*>(&_impl_.stonetype_),
+          reinterpret_cast<char*>(&other->_impl_.stonetype_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata P_Player::GetMetadata() const {

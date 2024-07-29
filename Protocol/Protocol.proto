@@ -104,4 +104,6 @@ message P_Player
 {
     string userName = 1;
     int32 stoneType = 2; // 0: none, 1: black, 2: white
+	int32 win = 3;
+	int32 lose = 4;
 }

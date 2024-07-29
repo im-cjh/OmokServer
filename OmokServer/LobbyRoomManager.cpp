@@ -4,6 +4,7 @@
 #include "Room.h"
 #include "PacketHandler.h"
 #include "Protocol.pb.h"
+#include "BattleServerSession.h"
 
 
 LobbyRoomManager GLobbyRoomManager;
@@ -61,3 +62,18 @@ void LobbyRoomManager::HandleQuitRoom(BYTE* pBuffer, INT32 pLen, LobbyPlayerRef 
 {
 
 }
+
+//void LobbyRoomManager::HandleGameStart(BYTE* pBuffer, INT32 pLen, LobbyPlayerRef pPlayer)
+//{
+//	Protocol::S2CBattleServerAddr pkt;
+//	pkt.set_battleserverip("127.0.0.1");
+//	pkt.set_port(8888);
+//	pkt.set_roomid(roomID++);
+//	int len = 0;
+//	BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MATCHMAKED_MESSAGE, &len);
+//
+//	player1->Send(sendBuffer, len);
+//
+//	//배틀서버에 방 만들기 요청
+//	GBattleServer->MakeRoom(roomID);
+//}
