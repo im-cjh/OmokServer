@@ -1,76 +1,72 @@
+const bcrypt = require('bcrypt');
 const express = require('express');
-// MongoDB와 연결
-const app = express();
+const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
 
+const app = express();
 app.use(bodyParser.json());
-// 로그인 요청을 처리하는 라우터
-const { MongoClient } = require('mongodb');
 
-app.post('/login', async (req, res) => {
-    // 클라이언트로부터 전송된 요청 본문에서 이메일과 패스워드 추출
-    const { email, pwd } = req.body;
+const client = new MongoClient('mongodb://localhost:27017');
 
-    // MongoDB와 연결
-    const client = new MongoClient('mongodb://localhost:27017');
-    await client.connect();
+app.post('/signup', async (req, res) => {
+    const { email, pwd, name } = req.body;
 
     try {
-        // 데이터베이스 선택
+        await client.connect();
         const db = client.db('discord');
+        const userCollection = db.collection('users');
+        const counterCollection = db.collection('counters');
 
-        // 사용자 컬렉션 선택
-        const collection = db.collection('users');
+        // 비밀번호 해싱
+        const saltRounds = 10;
+        const hashedPwd = await bcrypt.hash(pwd, saltRounds);
 
-        // 이메일을 기준으로 사용자 정보 조회
-        const user = await collection.findOne({ email: email, pwd: pwd });
+        // 사용자 ID 생성
+        const counterDoc = await counterCollection.findOneAndUpdate(
+            { _id: "userIdCounter" },
+            { $inc: { sequence_value: 1 } },
+            { returnDocument: "after", upsert: true }
+        );
 
-        if (user) {
-            // 사용자가 존재할 때의 로직
-            res.status(200).json({ id: user.userid, name: user.name});
-        }
-        else {
-            // 사용자가 존재하지 않을 때의 로직
-            res.status(404).json({ message: '사용자가 존재하지 않습니다.' });
-        }
-    }
-    catch (error) {
-        // 오류 발생 시
+        //// 반환 값 확인
+        //if (!counterDoc || !counterDoc.value) {
+        //    throw new Error('Counter document not found or created');
+        //}
+
+        const userId = counterDoc.sequence_value;
+
+        // 사용자 데이터 저장
+        const user = { email, pwd: hashedPwd, name, userid: userId, win: 0, lose: 0 };
+        await userCollection.insertOne(user);
+
+        res.status(200).json({ message: '사용자 생성 완료.', userId: userId });
+    } catch (error) {
         console.error('데이터베이스 작업 중 오류 발생:', error);
         res.status(500).json({ message: '데이터베이스 작업 중 오류가 발생했습니다.' });
-    }
-    finally {
-        // MongoDB 클라이언트 연결 종료
+    } finally {
         await client.close();
     }
 });
 
-app.post('/signup', async (req, res) =>
-{
-    // 클라이언트로부터 전송된 요청 본문에서 이메일과 패스워드 추출
-    const { email, pwd, name } = req.body;
 
-    // MongoDB와 연결
-    const client = new MongoClient('mongodb://localhost:27017');
-    await client.connect();
+app.post('/login', async (req, res) => {
+    const { email, pwd } = req.body;
 
-    try
-    {
+    try {
+        await client.connect();
         const db = client.db('discord');
-        // 이메일을 기준으로 사용자 정보 조회
-        const user = { email: email, pwd: pwd, name: name, win: 0, lose:0};
-        const result = await db.collection('users').insertOne(user);
-    }
-    catch (error)
-    {
-        // 오류 발생 시
-        console.error('데이터베이스 작업 중 오류 발생:', error.code);
+        const collection = db.collection('users');
+
+        const user = await collection.findOne({ email });
+        if (user && await bcrypt.compare(pwd, user.pwd)) {
+            res.status(200).json({ id: user.userid, name: user.name, win: user.win, lose: user.lose });
+        } else {
+            res.status(404).json({ message: '사용자가 존재하지 않거나 비밀번호가 일치하지 않습니다.' });
+        }
+    } catch (error) {
+        console.error('데이터베이스 작업 중 오류 발생:', error);
         res.status(500).json({ message: '데이터베이스 작업 중 오류가 발생했습니다.' });
-    }
-    finally
-    {
-        // MongoDB 클라이언트 연결 종료
-        res.status(200).json({ message: '사용자 생성 완료.' });
+    } finally {
         await client.close();
     }
 });

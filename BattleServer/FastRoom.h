@@ -23,7 +23,7 @@ public:
 
 public:
 	void Broadcast(BYTE* sendBuffer, INT32 pLen);
-	bool DFS(int pYpos, int pXpos, eStoneType pStoneType);
+	bool CheckOmok(int pYpos, int pXpos, eStoneType pStoneType);
 	void CheckAllPlayersConnected();
-	void CheckOmok(int pYpos, int pXpos, eStoneType pStoneType);
+	void OnPlacedStone(int pYpos, int pXpos, eStoneType pStoneType);
 };

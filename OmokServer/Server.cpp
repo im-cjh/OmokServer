@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 #include "SocketUtils.h"
-#include "Protocol.pb.h"
 #include "PacketHeader.h"
 #include "LobbyRoomManager.h"
 #include "Protocol.pb.h"
@@ -19,17 +18,6 @@ int main()
 
     GBattleServer = make_shared<BattleServerSession>();
     GBattleServer->Connect(8877);
-
-    
-    for (int i = 0; i < 1; i += 1)
-    {
-        Protocol::S2CRoomID pkt;
-        pkt.set_roomid(15);
-        int len = 0;
-        BYTE* sendBuffer = PacketHandler::SerializePacket(pkt, ePacketID::MAKE_FAST_ROOM_MESSAGE, &len);
-        GBattleServer->Send(sendBuffer, len);
-    }
-
 
     vector<thread> workerThreads;
 

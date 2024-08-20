@@ -83,6 +83,8 @@ PROTOBUF_CONSTEXPR C2SEnterRoom::C2SEnterRoom(
     /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.roomid_)*/0
   , /*decltype(_impl_.userid_)*/0
+  , /*decltype(_impl_.win_)*/0
+  , /*decltype(_impl_.lose_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct C2SEnterRoomDefaultTypeInternal {
   PROTOBUF_CONSTEXPR C2SEnterRoomDefaultTypeInternal()
@@ -310,6 +312,8 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   PROTOBUF_FIELD_OFFSET(::Protocol::C2SEnterRoom, _impl_.roomid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C2SEnterRoom, _impl_.userid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C2SEnterRoom, _impl_.username_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::C2SEnterRoom, _impl_.win_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::C2SEnterRoom, _impl_.lose_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::C2SQuitRoom, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -414,18 +418,18 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 17, -1, -1, sizeof(::Protocol::S2CRoomList)},
   { 24, -1, -1, sizeof(::Protocol::C2SMakeRoom)},
   { 33, -1, -1, sizeof(::Protocol::C2SEnterRoom)},
-  { 42, -1, -1, sizeof(::Protocol::C2SQuitRoom)},
-  { 50, -1, -1, sizeof(::Protocol::P_GameContent)},
-  { 60, -1, -1, sizeof(::Protocol::C2SLoginSuccess)},
-  { 68, -1, -1, sizeof(::Protocol::S2CEnterRoom)},
-  { 75, -1, -1, sizeof(::Protocol::S2CWinner)},
-  { 82, -1, -1, sizeof(::Protocol::C2SChatRoom)},
-  { 91, -1, -1, sizeof(::Protocol::S2CChatRoom)},
-  { 99, -1, -1, sizeof(::Protocol::S2CBattleServerAddr)},
-  { 108, -1, -1, sizeof(::Protocol::S2CRoomID)},
-  { 115, -1, -1, sizeof(::Protocol::S2CRoomCreated)},
-  { 122, -1, -1, sizeof(::Protocol::S2CGameStart)},
-  { 129, -1, -1, sizeof(::Protocol::P_Player)},
+  { 44, -1, -1, sizeof(::Protocol::C2SQuitRoom)},
+  { 52, -1, -1, sizeof(::Protocol::P_GameContent)},
+  { 62, -1, -1, sizeof(::Protocol::C2SLoginSuccess)},
+  { 70, -1, -1, sizeof(::Protocol::S2CEnterRoom)},
+  { 77, -1, -1, sizeof(::Protocol::S2CWinner)},
+  { 84, -1, -1, sizeof(::Protocol::C2SChatRoom)},
+  { 93, -1, -1, sizeof(::Protocol::S2CChatRoom)},
+  { 101, -1, -1, sizeof(::Protocol::S2CBattleServerAddr)},
+  { 110, -1, -1, sizeof(::Protocol::S2CRoomID)},
+  { 117, -1, -1, sizeof(::Protocol::S2CRoomCreated)},
+  { 124, -1, -1, sizeof(::Protocol::S2CGameStart)},
+  { 131, -1, -1, sizeof(::Protocol::P_Player)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -455,29 +459,30 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "Player\022\020\n\010userName\030\001 \001(\t\".\n\013S2CRoomList\022"
   "\037\n\005rooms\030\001 \003(\0132\020.Protocol.P_Room\"F\n\013C2SM"
   "akeRoom\022\020\n\010roomName\030\001 \001(\t\022\020\n\010hostName\030\002 "
-  "\001(\t\022\023\n\013num_players\030\003 \001(\005\"@\n\014C2SEnterRoom"
+  "\001(\t\022\023\n\013num_players\030\003 \001(\005\"[\n\014C2SEnterRoom"
   "\022\016\n\006roomID\030\001 \001(\005\022\016\n\006userID\030\002 \001(\005\022\020\n\010user"
-  "Name\030\003 \001(\t\"-\n\013C2SQuitRoom\022\016\n\006roomID\030\001 \001("
-  "\005\022\016\n\006userID\030\002 \001(\005\"O\n\rP_GameContent\022\016\n\006ro"
-  "omID\030\001 \001(\005\022\014\n\004yPos\030\002 \001(\002\022\014\n\004xPos\030\003 \001(\002\022\022"
-  "\n\nstoneColor\030\004 \001(\005\"3\n\017C2SLoginSuccess\022\020\n"
-  "\010userName\030\001 \001(\t\022\016\n\006userID\030\002 \001(\005\"8\n\014S2CEn"
-  "terRoom\022(\n\007players\030\001 \003(\0132\027.Protocol.P_Lo"
-  "bbyPlayer\"\037\n\tS2CWinner\022\022\n\nstoneColor\030\001 \001"
-  "(\005\"B\n\013C2SChatRoom\022\016\n\006roomID\030\001 \001(\005\022\017\n\007con"
-  "tent\030\002 \001(\t\022\022\n\nsenderName\030\003 \001(\t\"2\n\013S2CCha"
-  "tRoom\022\017\n\007content\030\001 \001(\t\022\022\n\nsenderName\030\002 \001"
-  "(\t\"K\n\023S2CBattleServerAddr\022\026\n\016battleServe"
-  "rIp\030\001 \001(\t\022\014\n\004port\030\002 \001(\005\022\016\n\006roomID\030\003 \001(\005\""
-  "\033\n\tS2CRoomID\022\016\n\006roomID\030\001 \001(\005\" \n\016S2CRoomC"
-  "reated\022\016\n\006roomID\030\001 \001(\005\"3\n\014S2CGameStart\022#"
-  "\n\007players\030\001 \003(\0132\022.Protocol.P_Player\"J\n\010P"
-  "_Player\022\020\n\010userName\030\001 \001(\t\022\021\n\tstoneType\030\002"
-  " \001(\005\022\013\n\003win\030\003 \001(\005\022\014\n\004lose\030\004 \001(\005b\006proto3"
+  "Name\030\003 \001(\t\022\013\n\003win\030\004 \001(\005\022\014\n\004lose\030\005 \001(\005\"-\n"
+  "\013C2SQuitRoom\022\016\n\006roomID\030\001 \001(\005\022\016\n\006userID\030\002"
+  " \001(\005\"O\n\rP_GameContent\022\016\n\006roomID\030\001 \001(\005\022\014\n"
+  "\004yPos\030\002 \001(\002\022\014\n\004xPos\030\003 \001(\002\022\022\n\nstoneColor\030"
+  "\004 \001(\005\"3\n\017C2SLoginSuccess\022\020\n\010userName\030\001 \001"
+  "(\t\022\016\n\006userID\030\002 \001(\005\"8\n\014S2CEnterRoom\022(\n\007pl"
+  "ayers\030\001 \003(\0132\027.Protocol.P_LobbyPlayer\"\037\n\t"
+  "S2CWinner\022\022\n\nstoneColor\030\001 \001(\005\"B\n\013C2SChat"
+  "Room\022\016\n\006roomID\030\001 \001(\005\022\017\n\007content\030\002 \001(\t\022\022\n"
+  "\nsenderName\030\003 \001(\t\"2\n\013S2CChatRoom\022\017\n\007cont"
+  "ent\030\001 \001(\t\022\022\n\nsenderName\030\002 \001(\t\"K\n\023S2CBatt"
+  "leServerAddr\022\026\n\016battleServerIp\030\001 \001(\t\022\014\n\004"
+  "port\030\002 \001(\005\022\016\n\006roomID\030\003 \001(\005\"\033\n\tS2CRoomID\022"
+  "\016\n\006roomID\030\001 \001(\005\" \n\016S2CRoomCreated\022\016\n\006roo"
+  "mID\030\001 \001(\005\"3\n\014S2CGameStart\022#\n\007players\030\001 \003"
+  "(\0132\022.Protocol.P_Player\"J\n\010P_Player\022\020\n\010us"
+  "erName\030\001 \001(\t\022\021\n\tstoneType\030\002 \001(\005\022\013\n\003win\030\003"
+  " \001(\005\022\014\n\004lose\030\004 \001(\005b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Protocol_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Protocol_2eproto = {
-    false, false, 999, descriptor_table_protodef_Protocol_2eproto,
+    false, false, 1026, descriptor_table_protodef_Protocol_2eproto,
     "Protocol.proto",
     &descriptor_table_Protocol_2eproto_once, nullptr, 0, 17,
     schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
@@ -1492,6 +1497,8 @@ C2SEnterRoom::C2SEnterRoom(const C2SEnterRoom& from)
       decltype(_impl_.username_){}
     , decltype(_impl_.roomid_){}
     , decltype(_impl_.userid_){}
+    , decltype(_impl_.win_){}
+    , decltype(_impl_.lose_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -1504,8 +1511,8 @@ C2SEnterRoom::C2SEnterRoom(const C2SEnterRoom& from)
       _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.roomid_, &from._impl_.roomid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userid_) -
-    reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.userid_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.lose_) -
+    reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.lose_));
   // @@protoc_insertion_point(copy_constructor:Protocol.C2SEnterRoom)
 }
 
@@ -1517,6 +1524,8 @@ inline void C2SEnterRoom::SharedCtor(
       decltype(_impl_.username_){}
     , decltype(_impl_.roomid_){0}
     , decltype(_impl_.userid_){0}
+    , decltype(_impl_.win_){0}
+    , decltype(_impl_.lose_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.username_.InitDefault();
@@ -1551,8 +1560,8 @@ void C2SEnterRoom::Clear() {
 
   _impl_.username_.ClearToEmpty();
   ::memset(&_impl_.roomid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.userid_) -
-      reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.userid_));
+      reinterpret_cast<char*>(&_impl_.lose_) -
+      reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.lose_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1585,6 +1594,22 @@ const char* C2SEnterRoom::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "Protocol.C2SEnterRoom.userName"));
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 win = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.win_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 lose = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.lose_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1639,6 +1664,18 @@ uint8_t* C2SEnterRoom::_InternalSerialize(
         3, this->_internal_username(), target);
   }
 
+  // int32 win = 4;
+  if (this->_internal_win() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_win(), target);
+  }
+
+  // int32 lose = 5;
+  if (this->_internal_lose() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_lose(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1672,6 +1709,16 @@ size_t C2SEnterRoom::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userid());
   }
 
+  // int32 win = 4;
+  if (this->_internal_win() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_win());
+  }
+
+  // int32 lose = 5;
+  if (this->_internal_lose() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lose());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -1699,6 +1746,12 @@ void C2SEnterRoom::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   if (from._internal_userid() != 0) {
     _this->_internal_set_userid(from._internal_userid());
   }
+  if (from._internal_win() != 0) {
+    _this->_internal_set_win(from._internal_win());
+  }
+  if (from._internal_lose() != 0) {
+    _this->_internal_set_lose(from._internal_lose());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1723,8 +1776,8 @@ void C2SEnterRoom::InternalSwap(C2SEnterRoom* other) {
       &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C2SEnterRoom, _impl_.userid_)
-      + sizeof(C2SEnterRoom::_impl_.userid_)
+      PROTOBUF_FIELD_OFFSET(C2SEnterRoom, _impl_.lose_)
+      + sizeof(C2SEnterRoom::_impl_.lose_)
       - PROTOBUF_FIELD_OFFSET(C2SEnterRoom, _impl_.roomid_)>(
           reinterpret_cast<char*>(&_impl_.roomid_),
           reinterpret_cast<char*>(&other->_impl_.roomid_));

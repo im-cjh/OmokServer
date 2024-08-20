@@ -29,24 +29,24 @@ namespace Protocol {
             "CgtudW1fcGxheWVycxgEIAEoBSIhCg1QX0xvYmJ5UGxheWVyEhAKCHVzZXJO",
             "YW1lGAEgASgJIi4KC1MyQ1Jvb21MaXN0Eh8KBXJvb21zGAEgAygLMhAuUHJv",
             "dG9jb2wuUF9Sb29tIkYKC0MyU01ha2VSb29tEhAKCHJvb21OYW1lGAEgASgJ",
-            "EhAKCGhvc3ROYW1lGAIgASgJEhMKC251bV9wbGF5ZXJzGAMgASgFIkAKDEMy",
+            "EhAKCGhvc3ROYW1lGAIgASgJEhMKC251bV9wbGF5ZXJzGAMgASgFIlsKDEMy",
             "U0VudGVyUm9vbRIOCgZyb29tSUQYASABKAUSDgoGdXNlcklEGAIgASgFEhAK",
-            "CHVzZXJOYW1lGAMgASgJIi0KC0MyU1F1aXRSb29tEg4KBnJvb21JRBgBIAEo",
-            "BRIOCgZ1c2VySUQYAiABKAUiTwoNUF9HYW1lQ29udGVudBIOCgZyb29tSUQY",
-            "ASABKAUSDAoEeVBvcxgCIAEoAhIMCgR4UG9zGAMgASgCEhIKCnN0b25lQ29s",
-            "b3IYBCABKAUiMwoPQzJTTG9naW5TdWNjZXNzEhAKCHVzZXJOYW1lGAEgASgJ",
-            "Eg4KBnVzZXJJRBgCIAEoBSI4CgxTMkNFbnRlclJvb20SKAoHcGxheWVycxgB",
-            "IAMoCzIXLlByb3RvY29sLlBfTG9iYnlQbGF5ZXIiHwoJUzJDV2lubmVyEhIK",
-            "CnN0b25lQ29sb3IYASABKAUiQgoLQzJTQ2hhdFJvb20SDgoGcm9vbUlEGAEg",
-            "ASgFEg8KB2NvbnRlbnQYAiABKAkSEgoKc2VuZGVyTmFtZRgDIAEoCSIyCgtT",
-            "MkNDaGF0Um9vbRIPCgdjb250ZW50GAEgASgJEhIKCnNlbmRlck5hbWUYAiAB",
-            "KAkiSwoTUzJDQmF0dGxlU2VydmVyQWRkchIWCg5iYXR0bGVTZXJ2ZXJJcBgB",
-            "IAEoCRIMCgRwb3J0GAIgASgFEg4KBnJvb21JRBgDIAEoBSIbCglTMkNSb29t",
-            "SUQSDgoGcm9vbUlEGAEgASgFIiAKDlMyQ1Jvb21DcmVhdGVkEg4KBnJvb21J",
-            "RBgBIAEoBSIzCgxTMkNHYW1lU3RhcnQSIwoHcGxheWVycxgBIAMoCzISLlBy",
-            "b3RvY29sLlBfUGxheWVyIkoKCFBfUGxheWVyEhAKCHVzZXJOYW1lGAEgASgJ",
-            "EhEKCXN0b25lVHlwZRgCIAEoBRILCgN3aW4YAyABKAUSDAoEbG9zZRgEIAEo",
-            "BWIGcHJvdG8z"));
+            "CHVzZXJOYW1lGAMgASgJEgsKA3dpbhgEIAEoBRIMCgRsb3NlGAUgASgFIi0K",
+            "C0MyU1F1aXRSb29tEg4KBnJvb21JRBgBIAEoBRIOCgZ1c2VySUQYAiABKAUi",
+            "TwoNUF9HYW1lQ29udGVudBIOCgZyb29tSUQYASABKAUSDAoEeVBvcxgCIAEo",
+            "AhIMCgR4UG9zGAMgASgCEhIKCnN0b25lQ29sb3IYBCABKAUiMwoPQzJTTG9n",
+            "aW5TdWNjZXNzEhAKCHVzZXJOYW1lGAEgASgJEg4KBnVzZXJJRBgCIAEoBSI4",
+            "CgxTMkNFbnRlclJvb20SKAoHcGxheWVycxgBIAMoCzIXLlByb3RvY29sLlBf",
+            "TG9iYnlQbGF5ZXIiHwoJUzJDV2lubmVyEhIKCnN0b25lQ29sb3IYASABKAUi",
+            "QgoLQzJTQ2hhdFJvb20SDgoGcm9vbUlEGAEgASgFEg8KB2NvbnRlbnQYAiAB",
+            "KAkSEgoKc2VuZGVyTmFtZRgDIAEoCSIyCgtTMkNDaGF0Um9vbRIPCgdjb250",
+            "ZW50GAEgASgJEhIKCnNlbmRlck5hbWUYAiABKAkiSwoTUzJDQmF0dGxlU2Vy",
+            "dmVyQWRkchIWCg5iYXR0bGVTZXJ2ZXJJcBgBIAEoCRIMCgRwb3J0GAIgASgF",
+            "Eg4KBnJvb21JRBgDIAEoBSIbCglTMkNSb29tSUQSDgoGcm9vbUlEGAEgASgF",
+            "IiAKDlMyQ1Jvb21DcmVhdGVkEg4KBnJvb21JRBgBIAEoBSIzCgxTMkNHYW1l",
+            "U3RhcnQSIwoHcGxheWVycxgBIAMoCzISLlByb3RvY29sLlBfUGxheWVyIkoK",
+            "CFBfUGxheWVyEhAKCHVzZXJOYW1lGAEgASgJEhEKCXN0b25lVHlwZRgCIAEo",
+            "BRILCgN3aW4YAyABKAUSDAoEbG9zZRgEIAEoBWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -54,7 +54,7 @@ namespace Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.P_LobbyPlayer), global::Protocol.P_LobbyPlayer.Parser, new[]{ "UserName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S2CRoomList), global::Protocol.S2CRoomList.Parser, new[]{ "Rooms" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C2SMakeRoom), global::Protocol.C2SMakeRoom.Parser, new[]{ "RoomName", "HostName", "NumPlayers" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C2SEnterRoom), global::Protocol.C2SEnterRoom.Parser, new[]{ "RoomID", "UserID", "UserName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C2SEnterRoom), global::Protocol.C2SEnterRoom.Parser, new[]{ "RoomID", "UserID", "UserName", "Win", "Lose" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C2SQuitRoom), global::Protocol.C2SQuitRoom.Parser, new[]{ "RoomID", "UserID" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.P_GameContent), global::Protocol.P_GameContent.Parser, new[]{ "RoomID", "YPos", "XPos", "StoneColor" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C2SLoginSuccess), global::Protocol.C2SLoginSuccess.Parser, new[]{ "UserName", "UserID" }, null, null, null, null),
@@ -1040,6 +1040,8 @@ namespace Protocol {
       roomID_ = other.roomID_;
       userID_ = other.userID_;
       userName_ = other.userName_;
+      win_ = other.win_;
+      lose_ = other.lose_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1085,6 +1087,30 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "win" field.</summary>
+    public const int WinFieldNumber = 4;
+    private int win_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Win {
+      get { return win_; }
+      set {
+        win_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "lose" field.</summary>
+    public const int LoseFieldNumber = 5;
+    private int lose_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Lose {
+      get { return lose_; }
+      set {
+        lose_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1103,6 +1129,8 @@ namespace Protocol {
       if (RoomID != other.RoomID) return false;
       if (UserID != other.UserID) return false;
       if (UserName != other.UserName) return false;
+      if (Win != other.Win) return false;
+      if (Lose != other.Lose) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1113,6 +1141,8 @@ namespace Protocol {
       if (RoomID != 0) hash ^= RoomID.GetHashCode();
       if (UserID != 0) hash ^= UserID.GetHashCode();
       if (UserName.Length != 0) hash ^= UserName.GetHashCode();
+      if (Win != 0) hash ^= Win.GetHashCode();
+      if (Lose != 0) hash ^= Lose.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1143,6 +1173,14 @@ namespace Protocol {
         output.WriteRawTag(26);
         output.WriteString(UserName);
       }
+      if (Win != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Win);
+      }
+      if (Lose != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Lose);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1165,6 +1203,14 @@ namespace Protocol {
         output.WriteRawTag(26);
         output.WriteString(UserName);
       }
+      if (Win != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Win);
+      }
+      if (Lose != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Lose);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1183,6 +1229,12 @@ namespace Protocol {
       }
       if (UserName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(UserName);
+      }
+      if (Win != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Win);
+      }
+      if (Lose != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Lose);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1204,6 +1256,12 @@ namespace Protocol {
       }
       if (other.UserName.Length != 0) {
         UserName = other.UserName;
+      }
+      if (other.Win != 0) {
+        Win = other.Win;
+      }
+      if (other.Lose != 0) {
+        Lose = other.Lose;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1232,6 +1290,14 @@ namespace Protocol {
             UserName = input.ReadString();
             break;
           }
+          case 32: {
+            Win = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            Lose = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -1257,6 +1323,14 @@ namespace Protocol {
           }
           case 26: {
             UserName = input.ReadString();
+            break;
+          }
+          case 32: {
+            Win = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            Lose = input.ReadInt32();
             break;
           }
         }

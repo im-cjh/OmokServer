@@ -23,6 +23,7 @@ void Listener::StartAccept()
 		INT addrLen = sizeof(clientAddr);
 		SOCKET clientSocket = ::accept(_socket, (SOCKADDR*)&clientAddr, &addrLen);
 
+		cout << "Listener: Connected\n";
 		if (clientSocket == INVALID_SOCKET)
 			return;
 

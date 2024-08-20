@@ -68,6 +68,8 @@ void FastRoom::Enter(BattleServerPlayerRef pPlayer, ePacketID pPacketID)
 			Protocol::P_Player* p = pkt.add_players();
 			p->set_username(player->getName());
 			p->set_stonetype(static_cast<int>(player->GetStoneType()));
+			p->set_win(player->GetWin());
+			p->set_lose(player->Getlose());
 		}
 
 		int len = 0;
@@ -104,13 +106,13 @@ void FastRoom::Broadcast(BYTE* sendBuffer, INT32 pLen)
 	}
 }
 
-void FastRoom::CheckOmok(int pYpos, int pXpos, eStoneType pStoneType)
+void FastRoom::OnPlacedStone(int pYpos, int pXpos, eStoneType pStoneType)
 {
 	if (_board[pYpos][pXpos] != eStoneType::NONE)
 		return;
 
 	_board[pYpos][pXpos] = (pStoneType);
-	if (DFS(pYpos, pXpos, pStoneType))
+	if (CheckOmok(pYpos, pXpos, pStoneType))
 	{
 		Protocol::S2CWinner pkt;
 		pkt.set_stonecolor(pStoneType);
@@ -122,11 +124,12 @@ void FastRoom::CheckOmok(int pYpos, int pXpos, eStoneType pStoneType)
 	}
 }
 
-bool FastRoom::DFS(int pYpos, int pXpos, eStoneType pStoneType)
+bool FastRoom::CheckOmok(int pYpos, int pXpos, eStoneType pStoneType)
 {
-	
-	int cnt = 1;
+	int cnt;
 
+	// 수직 검사
+	cnt = 1;
 	for (int y = pYpos + 1; y < pYpos + 5; y += 1)
 	{
 		if (y < BOARD_MAX&& _board[y][pXpos] != pStoneType)
@@ -135,7 +138,6 @@ bool FastRoom::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 		if (cnt >= 5)
 			return true;
 	}
-	cnt = 1;
 	for (int y = pYpos - 1; y > pYpos - 5; y -= 1)
 	{
 		if (y >= 0 && _board[y][pXpos] != pStoneType)
@@ -144,6 +146,8 @@ bool FastRoom::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 		if (cnt >= 5)
 			return true;
 	}
+
+	// 수평 검사
 	cnt = 1;
 	for (int x = pXpos + 1; x < pXpos + 5; x += 1)
 	{
@@ -153,17 +157,56 @@ bool FastRoom::DFS(int pYpos, int pXpos, eStoneType pStoneType)
 		if (cnt >= 5)
 			return true;
 	}
-	cnt = 1;
-	for (int x = pXpos - 1; x > pYpos - 5; x -= 1)
+	for (int x = pXpos - 1; x > pXpos - 5; x -= 1)
 	{
- 		if (x >= 0 && _board[pYpos][x] != pStoneType)
+		if (x >= 0 && _board[pYpos][x] != pStoneType)
 			break;
 		cnt += 1;
 		if (cnt >= 5)
 			return true;
 	}
+
+	// 우상향 대각선 검사 (↗)
+	cnt = 1;
+	for (int y = pYpos + 1, x = pXpos + 1; y < pYpos + 5 && x < pXpos + 5; y += 1, x += 1)
+	{
+		if (y < BOARD_MAX&& x < BOARD_MAX&& _board[y][x] != pStoneType)
+			break;
+		cnt += 1;
+		if (cnt >= 5)
+			return true;
+	}
+	for (int y = pYpos - 1, x = pXpos - 1; y > pYpos - 5 && x > pXpos - 5; y -= 1, x -= 1)
+	{
+		if (y >= 0 && x >= 0 && _board[y][x] != pStoneType)
+			break;
+		cnt += 1;
+		if (cnt >= 5)
+			return true;
+	}
+
+	// 우하향 대각선 검사 (↘)
+	cnt = 1;
+	for (int y = pYpos + 1, x = pXpos - 1; y < pYpos + 5 && x > pXpos - 5; y += 1, x -= 1)
+	{
+		if (y < BOARD_MAX && x >= 0 && _board[y][x] != pStoneType)
+			break;
+		cnt += 1;
+		if (cnt >= 5)
+			return true;
+	}
+	for (int y = pYpos - 1, x = pXpos + 1; y > pYpos - 5 && x < pXpos + 5; y -= 1, x += 1)
+	{
+		if (y >= 0 && x < BOARD_MAX && _board[y][x] != pStoneType)
+			break;
+		cnt += 1;
+		if (cnt >= 5)
+			return true;
+	}
+
 	return false;
 }
+
 
 void FastRoom::CheckAllPlayersConnected()
 {

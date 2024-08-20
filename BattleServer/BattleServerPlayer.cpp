@@ -2,11 +2,6 @@
 #include "BattleServerPlayer.h"
 #include "BattleRoomManager.h"
 
-void BattleServerPlayer::Connect(INT16 port)
-{
-
-}
-
 void BattleServerPlayer::setInfo(BYTE* pBuffer, INT32 pLen)
 {
 	Protocol::C2SLoginSuccess pkt;

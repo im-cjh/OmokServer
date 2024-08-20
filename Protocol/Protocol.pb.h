@@ -925,6 +925,8 @@ class C2SEnterRoom final :
     kUserNameFieldNumber = 3,
     kRoomIDFieldNumber = 1,
     kUserIDFieldNumber = 2,
+    kWinFieldNumber = 4,
+    kLoseFieldNumber = 5,
   };
   // string userName = 3;
   void clear_username();
@@ -958,6 +960,24 @@ class C2SEnterRoom final :
   void _internal_set_userid(int32_t value);
   public:
 
+  // int32 win = 4;
+  void clear_win();
+  int32_t win() const;
+  void set_win(int32_t value);
+  private:
+  int32_t _internal_win() const;
+  void _internal_set_win(int32_t value);
+  public:
+
+  // int32 lose = 5;
+  void clear_lose();
+  int32_t lose() const;
+  void set_lose(int32_t value);
+  private:
+  int32_t _internal_lose() const;
+  void _internal_set_lose(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.C2SEnterRoom)
  private:
   class _Internal;
@@ -969,6 +989,8 @@ class C2SEnterRoom final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
     int32_t roomid_;
     int32_t userid_;
+    int32_t win_;
+    int32_t lose_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3411,6 +3433,46 @@ inline void C2SEnterRoom::set_allocated_username(std::string* username) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:Protocol.C2SEnterRoom.userName)
+}
+
+// int32 win = 4;
+inline void C2SEnterRoom::clear_win() {
+  _impl_.win_ = 0;
+}
+inline int32_t C2SEnterRoom::_internal_win() const {
+  return _impl_.win_;
+}
+inline int32_t C2SEnterRoom::win() const {
+  // @@protoc_insertion_point(field_get:Protocol.C2SEnterRoom.win)
+  return _internal_win();
+}
+inline void C2SEnterRoom::_internal_set_win(int32_t value) {
+  
+  _impl_.win_ = value;
+}
+inline void C2SEnterRoom::set_win(int32_t value) {
+  _internal_set_win(value);
+  // @@protoc_insertion_point(field_set:Protocol.C2SEnterRoom.win)
+}
+
+// int32 lose = 5;
+inline void C2SEnterRoom::clear_lose() {
+  _impl_.lose_ = 0;
+}
+inline int32_t C2SEnterRoom::_internal_lose() const {
+  return _impl_.lose_;
+}
+inline int32_t C2SEnterRoom::lose() const {
+  // @@protoc_insertion_point(field_get:Protocol.C2SEnterRoom.lose)
+  return _internal_lose();
+}
+inline void C2SEnterRoom::_internal_set_lose(int32_t value) {
+  
+  _impl_.lose_ = value;
+}
+inline void C2SEnterRoom::set_lose(int32_t value) {
+  _internal_set_lose(value);
+  // @@protoc_insertion_point(field_set:Protocol.C2SEnterRoom.lose)
 }
 
 // -------------------------------------------------------------------

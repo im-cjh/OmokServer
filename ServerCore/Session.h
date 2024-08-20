@@ -17,11 +17,11 @@ public:
 
 	void	Send(BYTE* buffer, INT32 len);
 	void	Disconnect(const WCHAR* cause);
+	void Connect(INT16 port);
 
 protected:
 	void SetAddr(SOCKADDR_IN addr) { _addr = addr; }
 	void SetSocket(SOCKET socket) { _socket = socket; }
-	virtual void Connect(INT16 port = 0);
 	void OnConnected();
 
 private:
@@ -60,7 +60,7 @@ private:
 
 		return processLen;
 	}
-	virtual void HandlePacket(BYTE* buffer, INT32 len, ePacketID ID) = 0;
+	virtual void HandlePacket(BYTE* buffer, INT32 len, ePacketID ID);
 
 protected:
 	SOCKET _socket;

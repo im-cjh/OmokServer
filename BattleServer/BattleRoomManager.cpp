@@ -63,7 +63,7 @@ void BattleRoomManager::BroadcastContent(BYTE* pBuffer, INT32 pLen)
 
 		int adjY = 9 + (int)(pkt.ypos() / 0.34);
 		int adjX = 9 + (int)(pkt.xpos() / 0.34);
-		_rooms[pkt.roomid()].CheckOmok(adjY, adjX, static_cast<eStoneType>(pkt.stonecolor()));
+		_rooms[pkt.roomid()].OnPlacedStone(adjY, adjX, static_cast<eStoneType>(pkt.stonecolor()));
 	}
 	else
 	{
@@ -116,6 +116,9 @@ void BattleRoomManager::HandleEnterRoom(BYTE* pBuffer, INT32 pLen, BattleServerP
 	if (pkt.ParseFromArray(pBuffer + sizeof(PacketHeader), pLen - sizeof(PacketHeader)))
 	{
 		pPlayer->setName(pkt.username());
+		pPlayer->SetWin(pkt.win());
+		pPlayer->SetLose(pkt.lose());
+
 		auto a = pkt.roomid();
 		_rooms[pkt.roomid()].Enter(pPlayer, pPacketID);
 	}

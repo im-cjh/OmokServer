@@ -30,7 +30,23 @@ void Session::Send(BYTE* buffer, INT32 len)
 
 void Session::Connect(INT16 port)
 {
+	sockaddr_in serverAddr;
+	memset(&serverAddr, 0, sizeof(serverAddr));
+	serverAddr.sin_family = AF_INET;
+	inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr); // 오목 서버 IP 주소
+	serverAddr.sin_port = htons(port); // 배틀 서버 포트
 
+	if (::connect(_socket, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR)
+	{
+		int err = WSAGetLastError();
+		cout << "Connect error: " << err << endl;
+		return;
+	}
+	else
+	{
+		cout << "Connected!" << endl;
+		Session::OnConnected();
+	}
 }
 
 void Session::Disconnect(const WCHAR* cause)
@@ -136,6 +152,11 @@ void Session::RegisterSend(SendEvent* sendEvent)
 void Session::ProcessDisconnect()
 {
 	_disconnectEvent.owner = nullptr; // RELEASE_REF
+}
+
+void Session::HandlePacket(BYTE* buffer, INT32 len, ePacketID ID)
+{
+	cout << "Session's HandlePacket\n";
 }
 
 void Session::ProcessRecv(INT32 numOfBytes)

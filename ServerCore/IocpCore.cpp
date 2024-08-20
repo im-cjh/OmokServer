@@ -37,6 +37,7 @@ bool IocpCore::Dispatch(UINT32 timeoutMs)
 	else
 	{
 		INT32 errCode = ::WSAGetLastError();
+		cout << errCode << " Error\n";
 		switch (errCode)
 		{
 		case WAIT_TIMEOUT:

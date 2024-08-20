@@ -10,6 +10,9 @@ public:
 
 private:
 	INT32 _ID = -1;
+	INT32 _win = -1;
+	INT32 _lose = -1;
+
 	string _name = u8"default name";
 	SOCKET _battleSocket;
 	eStoneType _stoneType;
@@ -21,9 +24,6 @@ public:
 	}
 
 public:
-
-	virtual void Connect(INT16 port = 0) override;
-
 	void setName(const string& pName)
 	{
 		_name = pName;
@@ -38,6 +38,26 @@ public:
 	SOCKET GetBattleSocket()
 	{
 		return _battleSocket;
+	}
+
+	INT32 GetWin()
+	{
+		return _win;
+	}
+
+	void SetWin(INT32 pWin)
+	{
+		_win = pWin;
+	}
+
+	void SetLose(INT32 pLose)
+	{
+		_lose = pLose;
+	}
+
+	INT32 Getlose()
+	{
+		return _lose;
 	}
 
 	void SetStoneType(eStoneType stoneType) { _stoneType = stoneType; }
